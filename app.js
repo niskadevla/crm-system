@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 
 const authRoutes = require('./routes/auth.routes');
 const analyticsRoutes = require('./routes/analytics.routes');
@@ -8,6 +10,10 @@ const positionRoutes = require('./routes/position.routes');
 
 const API_URL = '/api';
 const app = express();
+
+app.use(cors());
+app.use(morgan('combined'));
+app.use(express.json());
 
 app.use(`${API_URL}/auth`, authRoutes);
 app.use(`${API_URL}/analytics`, analyticsRoutes);

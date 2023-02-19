@@ -1,6 +1,7 @@
-const login = (req, res) => {
+const login = ({ body: { email, password } }, res) => {
   res.status(200).json({
-    login: true
+    email,
+    password
   });
 };
 
