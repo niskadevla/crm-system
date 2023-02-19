@@ -2,7 +2,7 @@
   "name": "node-js_with_angular",
   "version": "1.0.0",
   "description": "CRM system with Node + Angular",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node index",
     "server": "nodemon index"

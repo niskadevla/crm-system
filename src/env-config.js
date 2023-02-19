@@ -2,7 +2,7 @@ const path = require('path');
 
 require('dotenv').config({
   debug: true,
-  path: path.resolve(__dirname, './', 'config', 'config.env' )
+  path: path.resolve(__dirname, '../', 'config', 'config.env' )
 });
 
 const ENV_CONFIG = {
