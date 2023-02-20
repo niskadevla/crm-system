@@ -1,12 +1,12 @@
 const express = require('express');
 
-const { getByCategoryId, create, update, remove } = require('../controllers/position.controllers');
+const { httpGetByCategoryId, httpCreate, httpUpdate, httpRemove } = require('../controllers/position.controllers');
 
 const router = express.Router();
 
-router.get('/:categoryId', getByCategoryId);
-router.post('/', create);
-router.patch('/:id', update);
-router.delete('/:id', remove);
+router.get('/:categoryId', httpGetByCategoryId);
+router.post('/', httpCreate);
+router.patch('/:id', httpUpdate);
+router.delete('/:id', httpRemove);
 
 module.exports = router;

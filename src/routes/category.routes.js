@@ -1,13 +1,13 @@
 const express = require('express');
 
-const { getAll, getById, remove, create, update } = require('../controllers/category.controllers');
+const { httpGetAll, httpGetById, httpRemove, httpCreate, httpUpdate } = require('../controllers/category.controllers');
 
 const router = express.Router();
 
-router.get('/', getAll);
-router.get('/:id', getById);
-router.delete('/:id', remove);
-router.post('/', create);
-router.patch('/:id', update);
+router.get('/', httpGetAll);
+router.get('/:id', httpGetById);
+router.delete('/:id', httpRemove);
+router.post('/', httpCreate);
+router.patch('/:id', httpUpdate);
 
 module.exports = router;

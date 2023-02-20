@@ -1,22 +1,22 @@
-const getByCategoryId = (req, res) => {
+const httpGetByCategoryId = (req, res) => {
 
 };
 
-const remove = (req, res) => {
+const httpRemove = (req, res) => {
 
 };
 
-const create = (req, res) => {
+const httpCreate = (req, res) => {
 
 };
 
-const update = (req, res) => {
+const httpUpdate = (req, res) => {
 
 };
 
 module.exports = {
-  getByCategoryId,
-  remove,
-  create,
-  update
+  httpGetByCategoryId,
+  httpRemove,
+  httpCreate,
+  httpUpdate
 }

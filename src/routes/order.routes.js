@@ -1,10 +1,10 @@
 const express = require('express');
 
-const { getAll, create } = require('../controllers/order.controllers');
+const { httpGetAll, httpCreate } = require('../controllers/order.controllers');
 
 const router = express.Router();
 
-router.get('/', getAll);
-router.post('/', create);
+router.get('/', httpGetAll);
+router.post('/', httpCreate);
 
 module.exports = router;

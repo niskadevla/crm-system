@@ -1,27 +1,27 @@
-const getAll = (req, res) => {
+const httpGetAll = (req, res) => {
 
 };
 
-const getById = (req, res) => {
+const httpGetById = (req, res) => {
 
 };
 
-const remove = (req, res) => {
+const httpRemove = (req, res) => {
 
 };
 
-const create = (req, res) => {
+const httpCreate = (req, res) => {
 
 };
 
-const update = (req, res) => {
+const httpUpdate = (req, res) => {
 
 };
 
 module.exports = {
-  getAll,
-  getById,
-  remove,
-  create,
-  update
+  httpGetAll,
+  httpGetById,
+  httpRemove,
+  httpCreate,
+  httpUpdate
 }

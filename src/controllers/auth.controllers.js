@@ -1,17 +1,17 @@
-const login = ({ body: { email, password } }, res) => {
+const httpLogin = ({ body: { email, password } }, res) => {
   res.status(200).json({
     email,
     password
   });
 };
 
-const register = (req, res) => {
+const httpRegister = (req, res) => {
   res.status(200).json({
     register: 'from controller'
   })
 }
 
 module.exports = {
-  login,
-  register
+  httpLogin,
+  httpRegister
 };

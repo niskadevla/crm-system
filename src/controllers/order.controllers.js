@@ -1,12 +1,12 @@
-const getAll = (req, res) => {
+const httpGetAll = (req, res) => {
 
 };
 
-const create = (req, res) => {
+const httpCreate = (req, res) => {
 
 };
 
 module.exports = {
-  getAll,
-  create
+  httpGetAll,
+  httpCreate
 }

@@ -1,12 +1,12 @@
-const overview = (req, res) => {
+const httpOverview = (req, res) => {
 
 };
 
-const analytics = (req, res) => {
+const httpAnalytics = (req, res) => {
 
 };
 
 module.exports = {
-  overview,
-  analytics
+  httpOverview,
+  httpAnalytics
 }
