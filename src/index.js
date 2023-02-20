@@ -1,4 +1,4 @@
-const { mongoConnect } = require('./frameworks/mongo/mongo-db.service')
+const { mongoConnect } = require('./middleware/mongo/mongo-db.service')
 
 const app = require('./app');
 
