@@ -1,3 +1,5 @@
+const { createNewUser, existsUserWithEmail } = require('../models/auth.models');
+
 const httpLogin = ({ body: { email, password } }, res) => {
   res.status(200).json({
     email,
@@ -5,10 +7,16 @@ const httpLogin = ({ body: { email, password } }, res) => {
   });
 };
 
-const httpRegister = (req, res) => {
-  res.status(200).json({
-    register: 'from controller'
-  })
+const httpRegister = async ({ body }, res) => {
+  const candidate = await existsUserWithEmail(body.email);
+
+  if (candidate) {
+    return res.status(409).json({
+      message: `User with this ${body.email} already exists. Try another one!`
+    });
+  } else {
+    return res.status(201).json(await createNewUser(body));
+  }
 }
 
 module.exports = {
