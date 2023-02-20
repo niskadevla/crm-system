@@ -6,10 +6,6 @@ const findUser = async (filter) => {
   return User.findOne(filter);
 }
 
-const existsUserWithEmail = async (email) => {
-  return await findUser({ email });
-}
-
 const createNewUser = async ({ email, password }) => {
   const salt = bcrypt.genSaltSync();
   const user = new User({
@@ -25,7 +21,12 @@ const createNewUser = async ({ email, password }) => {
   }
 }
 
+const matchPasswords = (password, hash) => {
+  return bcrypt.compareSync(password, hash)
+}
+
 module.exports = {
-  existsUserWithEmail,
-  createNewUser
+  findUser,
+  createNewUser,
+  matchPasswords
 }

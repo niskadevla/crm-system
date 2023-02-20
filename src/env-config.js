@@ -6,7 +6,8 @@ require('dotenv').config({
 });
 
 const ENV_CONFIG = {
-  mongoURI: process.env.MONGO_URI
+  mongoURI: process.env.MONGO_URI,
+  JWT: process.env.JWT
 }
 
 module.exports = ENV_CONFIG;
