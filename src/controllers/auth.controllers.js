@@ -1,9 +1,9 @@
 const JWT = require('jsonwebtoken');
 
 const ENV_CONFIG = require('../env-config')
-
 const { findUser, createNewUser, matchPasswords } = require('../models/auth.models');
 const CustomError = require('../utils/classes/error.classes');
+const errorHandler = require('../utils/functions/error-handler');
 
 const httpLogin = async ({ body: { email, password } }, res) => {
   const candidate = await findUser({ email });
@@ -33,7 +33,13 @@ const httpRegister = async ({ body }, res) => {
   if (candidate) {
     return res.status(409).json(new CustomError(`User with this ${ email } already exists. Try another one!`));
   } else {
-    return res.status(201).json(await createNewUser(body));
+    try {
+      const user = await createNewUser(body);
+
+      return res.status(201).json(user);
+    } catch (err) {
+      return errorHandler(res, err);
+    }
   }
 }
 
