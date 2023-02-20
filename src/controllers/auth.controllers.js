@@ -1,19 +1,22 @@
 const JWT = require('jsonwebtoken');
 
 const ENV_CONFIG = require('../env-config')
-const { findUser, createNewUser, matchPasswords } = require('../models/auth.models');
+const { findUserByFilter, createNewUser } = require('../models/user.models')
+const {  matchPasswords } = require('../utils/functions/encrypt');
 const CustomError = require('../utils/classes/error.classes');
 const errorHandler = require('../utils/functions/error-handler');
 
 const httpLogin = async ({ body: { email, password } }, res) => {
-  const candidate = await findUser({ email });
+  const candidate = await findUserByFilter({ email });
 
   if (candidate) {
     if (matchPasswords(password, candidate.password)) {
-      const token = JWT.sign({
+      const jwtPayload = {
         email,
         userId: candidate._id
-      }, ENV_CONFIG.JWT, { expiresIn: 60 * 60 });
+      };
+      const jwtOptions = { expiresIn: '1h' };
+      const token = JWT.sign(jwtPayload, ENV_CONFIG.JWT, jwtOptions);
 
       return res.status(200).json({
         token: `Bearer ${token}`
@@ -28,7 +31,7 @@ const httpLogin = async ({ body: { email, password } }, res) => {
 
 const httpRegister = async ({ body }, res) => {
   const { email } = body;
-  const candidate = await findUser({ email });
+  const candidate = await findUserByFilter({ email });
 
   if (candidate) {
     return res.status(409).json(new CustomError(`User with this ${ email } already exists. Try another one!`));

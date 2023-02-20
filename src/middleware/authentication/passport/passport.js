@@ -25,8 +25,8 @@ const verifyCallback = async (payload, done) => {
 }
 
 const useAuthentication = (app) => {
-  app.use(passport.initialize());
   passport.use(new JwtStrategy(AUTH_OPTIONS, verifyCallback));
+  app.use(passport.initialize());
 }
 
 module.exports = useAuthentication;
