@@ -1,9 +1,9 @@
-import { errorHandler, IGetRequest, IJwtRequest, IParamId, IPostRequest } from '../utils';
-import { createPosition, findPositionsByFilter, removePosition, updatePosition } from '../models/position.models';
-import { IPosition } from '../entities/interfaces/position.interfaces';
+import { errorHandler, IGetRequest, IParamId, IPostRequest } from '../utils';
+import { createPosition, getPositionsByFilter, removePosition, updatePosition } from '../models/position.models';
+import { IPosition } from '../entities';
 
 export const httpGetByCategoryId = async (
-  { params, user }: IGetRequest<{ categoryId: string }, IJwtRequest>,
+  { params, user }: Required<IGetRequest<{ categoryId: string }>>,
   res: any
 ) => {
   try {
@@ -11,7 +11,7 @@ export const httpGetByCategoryId = async (
       category: +params.categoryId,
       user: user?.id
     };
-    const positions = await findPositionsByFilter(payload);
+    const positions = await getPositionsByFilter(payload);
 
     return res.status(200).json(positions);
   } catch (e: unknown) {
@@ -19,7 +19,7 @@ export const httpGetByCategoryId = async (
   }
 };
 
-export const httpRemove = async ({ params }: IGetRequest<IParamId>, res: any) => {
+export const httpRemove = async ({ params }: Required<IGetRequest<IParamId>>, res: any) => {
   try {
     const position = await removePosition({ _id: params.id });
 

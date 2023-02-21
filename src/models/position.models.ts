@@ -1,8 +1,11 @@
 import { PositionsModel } from './schemas/position.mongo';
-import { IPosition } from '../entities/interfaces/position.interfaces';
+import { IPosition } from '../entities';
 
-export const findPositionsByFilter = async (filter: Partial<IPosition>): Promise<any> => {
-  return PositionsModel.find(filter);
+export const getPositionsByFilter = async (filter: Partial<IPosition>): Promise<any> => {
+  return PositionsModel.find(filter, {
+    _id: 0,
+    __v: 0
+  });
 };
 
 export const createPosition = async (payload: IPosition): Promise<any> => {

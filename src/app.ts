@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import path from 'path';
 
 import { useAuthentication } from './middleware/authentication/passport/passport';
 import { useSecure } from './middleware/secure/use-secure';
@@ -11,6 +12,7 @@ export const app = express();
 useSecure(app);
 useAuthentication(app);
 
+app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')));
 app.use(morgan('combined'));
 app.use(express.json());
 

@@ -5,8 +5,8 @@ export interface  IPostRequest<T, P = {}> extends IMiddlewareRequest {
   params?: P
 }
 
-export interface IGetRequest<T, U = {}> extends IMiddlewareRequest {
-  params: T;
+export interface IGetRequest<T = {}> extends IMiddlewareRequest {
+  params?: T;
 }
 
 export interface IMiddlewareRequest {
@@ -15,4 +15,8 @@ export interface IMiddlewareRequest {
 
 export interface IParamId {
   id: string;
+}
+
+export interface IPostWithFileRequest<T, P = {}> extends IPostRequest<T, P> {
+  file: Express.Multer.File;
 }
