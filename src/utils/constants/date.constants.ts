@@ -1,0 +1,1 @@
+export const TIME_EXPIRATION = '1h';
