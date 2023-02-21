@@ -1,22 +1,22 @@
 import JWT from 'jsonwebtoken';
 
 import { ENV_CONFIG } from '../env-config';
-import { CustomError, errorHandler, IRequest, matchPasswords } from '../utils';
+import { CustomError, errorHandler, IJwtResponse, IPostRequest, matchPasswords } from '../utils';
 import { IUser, IUserDTO } from '../entities';
 import { createNewUser, findUserByFilter } from '../models/user.models';
 import { TIME_EXPIRATION } from '../utils';
 
-export const httpLogin = async ({ body: { email, password } }: IRequest<IUser>, res: any) => {
+export const httpLogin = async ({ body: { email, password } }: IPostRequest<IUser>, res: any) => {
   const candidate = await findUserByFilter({ email });
 
   if (candidate) {
     if (matchPasswords(password, candidate.password)) {
-      const jwtPayload = {
+      const jwtPayload: IJwtResponse = {
         email,
         userId: candidate._id
       };
       const jwtOptions = { expiresIn: TIME_EXPIRATION };
-      const token = JWT.sign(jwtPayload, ENV_CONFIG.JWT, jwtOptions);
+      const token: string = JWT.sign(jwtPayload, ENV_CONFIG.JWT, jwtOptions);
 
       return res.status(200).json({
         token: `Bearer ${token}`
@@ -29,7 +29,7 @@ export const httpLogin = async ({ body: { email, password } }: IRequest<IUser>, 
   }
 };
 
-export const httpRegister = async ({ body }: IRequest<IUser>, res: any) => {
+export const httpRegister = async ({ body }: IPostRequest<IUser>, res: any) => {
   const { email } = body;
   const candidate = await findUserByFilter({ email });
 

@@ -4,13 +4,14 @@ import { Express } from 'express';
 
 import { ENV_CONFIG } from '../../../env-config';
 import { getUserByIdWithFields } from '../../../models/user.models';
+import { IJwtResponse } from '../../../utils';
 
 const AUTH_OPTIONS = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: ENV_CONFIG.JWT
 };
 
-const verifyCallback = async (payload: any, done: any) => {
+const verifyCallback = async (payload: IJwtResponse, done: any) => {
   try {
     const user = await getUserByIdWithFields(payload.userId, 'email id');
 

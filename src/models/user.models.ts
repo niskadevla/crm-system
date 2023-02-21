@@ -6,7 +6,7 @@ export const findUserByFilter = async (filter: any): Promise<any> => {
   return UserModel.findOne(filter);
 }
 
-export const getUserByIdWithFields = async (userId: number, fields: string): Promise<Partial<IUserDTO> | null> => {
+export const getUserByIdWithFields = async (userId: string, fields: string): Promise<Partial<IUserDTO> | null> => {
   return UserModel.findById(userId).select(fields);
 }
 
