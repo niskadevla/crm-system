@@ -42,14 +42,14 @@ export const httpRemove = async ({ params: { id } }: Required<IGetRequest<IParam
 
 export const httpCreate = async ({ body, user, file }: IPostWithFileRequest<Pick<ICategory, 'name'>>, res: any) => {
   try {
-    const category = {
+    const newCategory = {
       name: body.name,
       user: user?.id,
       imageSrc: file ? file.path : ''
     };
-    const newCategory = await createCategory(category);
+    const category = await createCategory(newCategory);
 
-    res.status(201).json(newCategory);
+    res.status(201).json(category);
   } catch (e: unknown) {
     errorHandler(res, e as Error);
   }

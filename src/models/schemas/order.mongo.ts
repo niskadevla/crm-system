@@ -28,4 +28,4 @@ const usersSchema = new Schema({
   }
 });
 
-export const OrdersModel = mongoose.model('Orders', usersSchema);
+  export const OrdersModel = mongoose.model('Orders', usersSchema);
