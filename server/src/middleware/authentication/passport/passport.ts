@@ -1,4 +1,4 @@
-import passport from 'passport';
+import passport from 'server/src/middleware/authentication/passport/passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { Express } from 'express';
 

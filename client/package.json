@@ -1,0 +1,8 @@
+{
+  "name": "crm-fe",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "ng serve",
+    "test": "jest"
+  }
+}

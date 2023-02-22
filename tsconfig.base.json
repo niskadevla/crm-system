@@ -13,7 +13,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "sourceMap": true,
-    "strict": true,
     "target": "es2018"
   },
   "exclude": ["node_modules"]
