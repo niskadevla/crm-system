@@ -19,8 +19,8 @@ System allows us to create users and watch their orders.
 ## Docker
 
 1. Ensure you have the latest version of Docker installed
-2. Run `docker build -t node-js_with_angular .`
-3. Run `docker run -it -p 5000:5000 node-js_with_angular`
+2. Run `docker build -t crm-system .`
+3. Run `docker run -it -p 5000:5000 crm-system`
 
 ## Running the Tests
 
