@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "CRM system with Node + Angular",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "install-server": "npm install --prefix server",
     "install-client": "npm install --prefix client",
@@ -10,6 +11,7 @@
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
     "watch": "npm run server & npm run client",
+    "pm2": "pm2 start server -l logs/server-logs.txt -i max",
     "test": "npm test --prefix server && npm test --prefix client"
   },
   "keywords": [
