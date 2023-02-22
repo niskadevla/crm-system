@@ -1,5 +1,5 @@
 import { errorHandler, IGetRequest, IPostRequest, IQueryPagination } from '../utils';
-import { createOrder, getLastOrderByFilter, getOrdersByFilterWithPagination } from '../models/order.models';
+import { createOrder, getLastOrderByFilter, getOrdersByFilterWithPagination } from '../models/order/order.models';
 import { IOrder } from '../entities';
 
 export const httpGetAll = async ({ query, user }: IGetRequest<{}, IQueryPagination>, res: any) => {

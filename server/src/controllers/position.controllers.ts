@@ -1,5 +1,5 @@
 import { errorHandler, IGetRequest, IParamId, IPostRequest } from '../utils';
-import { createPosition, getPositionsByFilter, removePosition, updatePosition } from '../models/position.models';
+import { createPosition, getPositionsByFilter, removePosition, updatePosition } from '../models/position/position.models';
 import { IPosition } from '../entities';
 
 export const httpGetByCategoryId = async (

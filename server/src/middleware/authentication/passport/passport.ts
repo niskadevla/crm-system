@@ -3,7 +3,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { Express } from 'express';
 
 import { ENV_CONFIG } from '../../../env-config';
-import { getUserByIdWithFields } from '../../../models/user.models';
+import { getUserByIdWithFields } from '../../../models/user/user.models';
 import { IJwtResponse } from '../../../utils';
 
 const AUTH_OPTIONS = {

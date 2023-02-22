@@ -1,6 +1,6 @@
-import { UserModel } from './schemas/user.mongo';
-import { encryptPassword } from '../utils';
-import { IUser, IUserDTO } from '../entities';
+import { UserModel } from './user.mongo';
+import { encryptPassword } from '../../utils';
+import { IUser, IUserDTO } from '../../entities';
 
 export const findUserByFilter = async (filter: any): Promise<any> => {
   return UserModel.findOne(filter);

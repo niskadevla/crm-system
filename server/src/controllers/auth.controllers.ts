@@ -3,7 +3,7 @@ import JWT from 'jsonwebtoken';
 import { ENV_CONFIG } from '../env-config';
 import { CustomError, errorHandler, IJwtResponse, IPostRequest, matchPasswords } from '../utils';
 import { IUser, IUserDTO } from '../entities';
-import { createNewUser, findUserByFilter } from '../models/user.models';
+import { createNewUser, findUserByFilter } from '../models/user/user.models';
 import { TIME_EXPIRATION } from '../utils';
 
 export const httpLogin = async ({ body: { email, password } }: IPostRequest<IUser>, res: any) => {

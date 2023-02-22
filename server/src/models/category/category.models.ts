@@ -1,6 +1,6 @@
-import { CategoriesModel } from './schemas/category.mongo';
-import { ICategory } from '../entities';
-import { ExcludedQuery } from '../utils';
+import { CategoriesModel } from './category.mongo';
+import { ICategory } from '../../entities';
+import { ExcludedQuery } from '../../utils';
 
 export const getCategoriesByFilter = async (filter: any): Promise<any> => {
   return CategoriesModel.find(filter, ExcludedQuery);

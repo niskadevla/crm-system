@@ -1,6 +1,6 @@
-import { PositionsModel } from './schemas/position.mongo';
-import { IPosition } from '../entities';
-import { ExcludedQuery } from '../utils';
+import { PositionsModel } from './position.mongo';
+import { IPosition } from '../../entities';
+import { ExcludedQuery } from '../../utils';
 
 export const getPositionsByFilter = async (filter: Partial<IPosition>): Promise<any> => {
   return PositionsModel.find(filter, ExcludedQuery);

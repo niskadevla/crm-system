@@ -5,8 +5,8 @@ import {
   getCategoryById,
   removeCategory,
   updateCategory
-} from '../models/category.models';
-import { removePosition } from '../models/position.models';
+} from '../models/category/category.models';
+import { removePosition } from '../models/position/position.models';
 import { ICategory } from '../entities';
 
 export const httpGetAll = async ({ user }: IGetRequest, res: any) => {

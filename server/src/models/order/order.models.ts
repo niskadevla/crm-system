@@ -1,6 +1,6 @@
-import { OrdersModel } from './schemas/order.mongo';
-import { IOrder } from '../entities';
-import { ExcludedQuery, getPagination, IQueryPagination, OrderEnum } from '../utils';
+import { OrdersModel } from './order.mongo';
+import { IOrder } from '../../entities';
+import { ExcludedQuery, getPagination, IQueryPagination, OrderEnum } from '../../utils';
 
 export const getLastOrderByFilter = async (filter: any) => {
   return OrdersModel.findOne(filter).sort({ date: OrderEnum.Desc });
