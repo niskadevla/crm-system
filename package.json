@@ -10,7 +10,7 @@
     "install": "npm run install-server && npm run install-client",
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
-    "watch": "npm run server & npm run client",
+    "watch": "concurrently --kill-others \"npm run server\" \"npm run client\"",
     "pm2": "pm2 start server -l logs/server-logs.txt -i max",
     "test": "npm test --prefix server && npm test --prefix client"
   },
@@ -20,5 +20,8 @@
     "node"
   ],
   "author": "Bielishev Denys",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
 }
