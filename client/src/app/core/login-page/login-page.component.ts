@@ -1,0 +1,110 @@
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { catchError, Observable, of, Subscription, tap } from 'rxjs';
+
+import { LoginFormControlsEnums } from './enums/login-form.enums';
+import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
+import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
+import { AuthQueryParamsEnum } from '../../shared/enums/query-params.enums';
+import { MaterialService } from '../../shared/services/material.service';
+
+@Component({
+  standalone: true,
+  selector: 'app-login-page',
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class LoginPageComponent implements OnInit, OnDestroy {
+
+  public loginForm!: FormGroup;
+  public readonly loginFormControlsEnums = LoginFormControlsEnums;
+
+  private subscription: Subscription = new Subscription();
+
+  public get emailControl(): AbstractControl {
+    return this.loginForm.get(LoginFormControlsEnums.Email) as AbstractControl;
+  }
+
+  public get passwordControl(): AbstractControl {
+    return this.loginForm.get(LoginFormControlsEnums.Password) as AbstractControl;
+  }
+
+  public get isEmailInvalid(): boolean {
+    return this.emailControl.invalid && this.emailControl.touched;
+  }
+
+  public get isPasswordInvalid(): boolean {
+    return this.passwordControl.invalid && this.passwordControl.touched;
+  }
+
+  public get isDisabled(): boolean {
+    return !this.loginForm.valid || this.loginForm.disabled;
+  }
+
+  constructor(
+      private fb: FormBuilder,
+      private authFacade: AuthFacadeService,
+      private router: Router,
+      private route: ActivatedRoute,
+      private materialService: MaterialService
+  ) {
+  }
+
+  public ngOnInit() {
+    this.initForm();
+    this.initQueryParamsListener();
+  }
+
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  public onSubmit() {
+    this.loginForm.disable();
+
+    this.subscription.add(
+        this.authFacade.login(this.loginForm.value)
+            .pipe(
+                tap(() => this.successNavigateTo()),
+                catchError((error: any) => this.handleError(error))
+            )
+            .subscribe()
+    );
+  }
+
+  private initForm() {
+    this.loginForm = this.fb.group({
+      [LoginFormControlsEnums.Email]: [null, [Validators.required, Validators.email]],
+      [LoginFormControlsEnums.Password]: [null, [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  private initQueryParamsListener(): void {
+    this.subscription.add(
+        this.route.queryParams.subscribe(this.showMessage.bind(this))
+    )
+  }
+
+  private successNavigateTo(): void {
+    this.router.navigate([ROUTE_CONFIGS.overview.fullPath]);
+  }
+
+  private handleError(error: any): Observable<any> {
+    this.materialService.toast(error.error.message)
+    this.loginForm.enable();
+    return of('');
+  }
+
+  private showMessage(params: Params): void {
+    const mapMessages = new Map()
+        .set(AuthQueryParamsEnum.AccessDenied, () => {})
+        .set(AuthQueryParamsEnum.Registered, () => this.materialService.toast('Now we can login to the system'));
+
+    Object.keys(params).forEach((param: string) => mapMessages.get(param)());
+  }
+}
