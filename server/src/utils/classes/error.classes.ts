@@ -1,9 +1,7 @@
-import { ICustomError } from '../interfaces';
-
 export class CustomError {
-  public error: ICustomError;
+  public message: string | Error;
 
   constructor(message: string | Error) {
-    this.error = { message };
+    this.message = message;
   }
 }
