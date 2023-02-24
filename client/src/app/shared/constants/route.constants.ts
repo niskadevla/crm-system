@@ -12,7 +12,14 @@ const register: IRouteConfig = {
   fullPath: '/signup'
 }
 
+const overview: IRouteConfig = {
+  name: 'overview',
+  path: 'overview',
+  fullPath: '/overview'
+}
+
 export const ROUTE_CONFIGS = {
   login,
-  register
+  register,
+  overview
 }
