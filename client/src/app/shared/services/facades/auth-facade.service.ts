@@ -15,4 +15,8 @@ export class AuthFacadeService {
   public login(user: IUser):  Observable<IToken> {
     return this.authApi.login(user);
   }
+
+  public register(user: IUser): Observable<IUser> {
+    return this.authApi.register(user);
+  }
 }

@@ -1,9 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 
 import { RegisterFormControlsEnums } from './enums/register-form.enums';
 import { comparePasswordValidator } from './validators/form.validators';
+import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
+import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
+import { AuthQueryParamsEnum } from '../../shared/enums/query-params.enums';
+import { MaterialService } from '../../shared/services/material.service';
 
 @Component({
   standalone: true,
@@ -13,9 +20,11 @@ import { comparePasswordValidator } from './validators/form.validators';
   styleUrls: ['./register-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
   public readonly registerFormControlsEnums = RegisterFormControlsEnums;
+
+  private subscription: Subscription = new Subscription();
 
   public get emailControl(): AbstractControl {
     return this.registerForm.get(RegisterFormControlsEnums.Email) as AbstractControl;
@@ -47,14 +56,33 @@ export class RegisterPageComponent implements OnInit {
         && this.passwordControl.touched;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+      private fb: FormBuilder,
+      private authFacade: AuthFacadeService,
+      private router: Router,
+      private materialService: MaterialService
+  ) {
   }
 
   public ngOnInit() {
     this.initForm();
   }
 
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   public onSubmit() {
+    this.registerForm.disable();
+
+    this.subscription.add(
+        this.authFacade.register(this.registerForm.value)
+            .pipe(
+                tap(this.successNavigateTo.bind(this)),
+                catchError(this.handleError.bind(this))
+            )
+            .subscribe()
+    );
   }
 
   private initForm() {
@@ -63,5 +91,19 @@ export class RegisterPageComponent implements OnInit {
       [RegisterFormControlsEnums.Password]: [null, [Validators.required, Validators.minLength(6)]],
       [RegisterFormControlsEnums.ComparedPassword]: [null, [Validators.required]]
     }, {validators: comparePasswordValidator});
+  }
+
+  private successNavigateTo(): void {
+    this.router.navigate([ROUTE_CONFIGS.login.fullPath], {
+      queryParams: {
+        [AuthQueryParamsEnum.Registered]: true
+      }
+    });
+  }
+
+  private handleError(error: any): Observable<any> {
+    this.materialService.toast(error.error.message);
+    this.registerForm.enable();
+    return of('');
   }
 }

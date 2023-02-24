@@ -1,13 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 
 import { LoginFormControlsEnums } from './enums/login-form.enums';
 import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
 import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
+import { AuthQueryParamsEnum } from '../../shared/enums/query-params.enums';
+import { MaterialService } from '../../shared/services/material.service';
 
 @Component({
   standalone: true,
@@ -44,11 +46,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     return !this.loginForm.valid || this.loginForm.disabled;
   }
 
-  constructor(private fb: FormBuilder, private authFacade: AuthFacadeService, private router: Router) {
+  constructor(
+      private fb: FormBuilder,
+      private authFacade: AuthFacadeService,
+      private router: Router,
+      private route: ActivatedRoute,
+      private materialService: MaterialService
+  ) {
   }
 
   public ngOnInit() {
     this.initForm();
+    this.initQueryParamsListener();
   }
 
   public ngOnDestroy() {
@@ -62,7 +71,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.authFacade.login(this.loginForm.value)
             .pipe(
                 tap(() => this.successNavigateTo()),
-                catchError((error: unknown) => this.handleError(error))
+                catchError((error: any) => this.handleError(error))
             )
             .subscribe()
     );
@@ -75,14 +84,27 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  private initQueryParamsListener(): void {
+    this.subscription.add(
+        this.route.queryParams.subscribe(this.showMessage.bind(this))
+    )
+  }
+
   private successNavigateTo(): void {
     this.router.navigate([ROUTE_CONFIGS.overview.fullPath]);
   }
 
-  private handleError(error: unknown): Observable<any> {
-    // TODO handle error
-    console.error(error);
+  private handleError(error: any): Observable<any> {
+    this.materialService.toast(error.error.message)
     this.loginForm.enable();
     return of('');
+  }
+
+  private showMessage(params: Params): void {
+    const mapMessages = new Map()
+        .set(AuthQueryParamsEnum.AccessDenied, () => {})
+        .set(AuthQueryParamsEnum.Registered, () => this.materialService.toast('Now we can login to the system'));
+
+    Object.keys(params).forEach((param: string) => mapMessages.get(param)());
   }
 }
