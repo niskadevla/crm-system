@@ -1,8 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 
 import { LoginFormControlsEnums } from './enums/login-form.enums';
+import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
+import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
 
 @Component({
   standalone: true,
@@ -12,10 +17,12 @@ import { LoginFormControlsEnums } from './enums/login-form.enums';
   styleUrls: ['./login-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
 
   public loginForm!: FormGroup;
   public readonly loginFormControlsEnums = LoginFormControlsEnums;
+
+  private subscription: Subscription = new Subscription();
 
   public get emailControl(): AbstractControl {
     return this.loginForm.get(LoginFormControlsEnums.Email) as AbstractControl;
@@ -37,14 +44,28 @@ export class LoginPageComponent implements OnInit {
     return !this.loginForm.valid || this.loginForm.disabled;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authFacade: AuthFacadeService, private router: Router) {
   }
 
   public ngOnInit() {
     this.initForm();
   }
 
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   public onSubmit() {
+    this.loginForm.disable();
+
+    this.subscription.add(
+        this.authFacade.login(this.loginForm.value)
+            .pipe(
+                tap(() => this.successNavigateTo()),
+                catchError((error: unknown) => this.handleError(error))
+            )
+            .subscribe()
+    );
   }
 
   private initForm() {
@@ -52,5 +73,16 @@ export class LoginPageComponent implements OnInit {
       [LoginFormControlsEnums.Email]: [null, [Validators.required, Validators.email]],
       [LoginFormControlsEnums.Password]: [null, [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  private successNavigateTo(): void {
+    this.router.navigate([ROUTE_CONFIGS.overview.fullPath]);
+  }
+
+  private handleError(error: unknown): Observable<any> {
+    // TODO handle error
+    console.error(error);
+    this.loginForm.enable();
+    return of('');
   }
 }

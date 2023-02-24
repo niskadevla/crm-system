@@ -1,7 +1,8 @@
 import { environment } from '../../../environments/environment';
 
-const {baseURL} = environment;
+const {apiRoot} = environment;
 
 export const urls = {
-
+  register: `${apiRoot}/auth/register`,
+  login: `${apiRoot}/auth/login`
 }
