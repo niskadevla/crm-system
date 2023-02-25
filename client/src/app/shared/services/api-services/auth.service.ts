@@ -12,7 +12,7 @@ import { IToken } from '../../models/auth.models';
   providedIn: 'root'
 })
 export class AuthService {
-  private token: string | null = null;
+  private token: IToken | null = null;
 
   public get isAuthenticated(): boolean {
     return !!this.token;
@@ -28,7 +28,7 @@ export class AuthService {
   public login(user: IUser): Observable<IToken> {
     return this.http.post<IToken>(urls.login, user)
         .pipe(
-            tap(({token}) => {
+            tap((token: IToken) => {
               this.storageService.setItem('auth-token', token);
               this.setToken(token);
             })
@@ -40,11 +40,11 @@ export class AuthService {
     this.storageService.clearStorage();
   }
 
-  public getToken(): string | null {
+  public getToken(): IToken | null {
     return this.token;
   }
 
-  private setToken(token: string | null) {
+  public setToken(token: IToken | null) {
     this.token = token;
   }
 }
