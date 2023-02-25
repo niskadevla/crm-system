@@ -18,8 +18,36 @@ const overview: IRouteConfig = {
   fullPath: '/overview'
 }
 
+const analytics: IRouteConfig = {
+  name: 'analytics',
+  path: 'analytics',
+  fullPath: '/analytics',
+}
+
+const history: IRouteConfig = {
+  name: 'history',
+  path: 'history',
+  fullPath: '/history',
+}
+
+const order: IRouteConfig = {
+  name: 'order',
+  path: 'order',
+  fullPath: '/order',
+};
+
+const categories: IRouteConfig = {
+  name: 'categories',
+  path: 'categories',
+  fullPath: '/categories',
+};
+
 export const ROUTE_CONFIGS = {
   login,
   register,
-  overview
+  overview,
+  analytics,
+  history,
+  order,
+  categories
 }

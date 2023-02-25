@@ -27,7 +27,12 @@ const routes: Routes = [
     path: '',
     loadComponent: () => import('./core/layouts/site-layout/site-layout.component').then(m => m.SiteLayoutComponent),
     canActivate: [AuthGuard],
-    children: []
+    children: [
+      {
+        path: ROUTE_CONFIGS.overview.path,
+        loadComponent: () => import('./core/overview-page/overview-page.component').then(m => m.OverviewPageComponent)
+      }
+    ]
   }
 ];
 
