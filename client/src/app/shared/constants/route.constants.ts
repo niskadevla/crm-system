@@ -42,6 +42,12 @@ const categories: IRouteConfig = {
   fullPath: '/categories',
 };
 
+const newItem: IRouteConfig = {
+  name: 'new',
+  path: 'new',
+  fullPath: '/new',
+}
+
 export const ROUTE_CONFIGS = {
   login,
   register,
@@ -49,5 +55,6 @@ export const ROUTE_CONFIGS = {
   analytics,
   history,
   order,
-  categories
+  categories,
+  newItem
 }
