@@ -70,8 +70,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.subscription.add(
         this.authFacade.login(this.loginForm.value)
             .pipe(
-                tap(() => this.successNavigateTo()),
-                catchError((error: any) => this.handleError(error))
+                tap(this.successNavigateTo.bind(this)),
+                catchError(this.handleError.bind(this))
             )
             .subscribe()
     );
@@ -95,7 +95,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private handleError(error: any): Observable<any> {
-    this.materialService.toast(error.error.message)
+    this.materialService.toast(error?.error?.message)
     this.loginForm.enable();
     return of('');
   }
