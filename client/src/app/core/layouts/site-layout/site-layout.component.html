@@ -26,12 +26,12 @@
   </a>
   <ul>
     <li>
-      <a class="btn-floating green" routerLink="/order">
+      <a class="btn-floating green" [routerLink]="routeConfigs.order.fullPath">
         <i class="material-icons">assignment</i>
       </a>
     </li>
     <li>
-      <a class="btn-floating blue" routerLink="/categories/new">
+      <a class="btn-floating blue" [routerLink]="[routeConfigs.categories.fullPath, routeConfigs.newItem.path]">
         <i class="material-icons">list</i>
       </a>
     </li>

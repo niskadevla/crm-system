@@ -31,6 +31,22 @@ const routes: Routes = [
       {
         path: ROUTE_CONFIGS.overview.path,
         loadComponent: () => import('./core/overview-page/overview-page.component').then(m => m.OverviewPageComponent)
+      },
+      {
+        path: ROUTE_CONFIGS.analytics.path,
+        loadComponent: () => import('./core/analytics-page/analytics-page.component').then(m => m.AnalyticsPageComponent)
+      },
+      {
+        path: ROUTE_CONFIGS.history.path,
+        loadComponent: () => import('./core/history-page/history-page.component').then(m => m.HistoryPageComponent)
+      },
+      {
+        path: ROUTE_CONFIGS.order.path,
+        loadComponent: () => import('./core/order-page/order-page.component').then(m => m.OrderPageComponent)
+      },
+      {
+        path: ROUTE_CONFIGS.categories.path,
+        loadComponent: () => import('./core/categories-page/categories-page.component').then(m => m.CategoriesPageComponent)
       }
     ]
   }
