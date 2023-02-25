@@ -1,4 +1,5 @@
 export enum AuthQueryParamsEnum {
   Registered = 'registered',
-  AccessDenied = 'accessDenied'
+  AccessDenied = 'accessDenied',
+  SessionFailed = 'sessionFailed'
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 import { ROUTE_CONFIGS } from './shared/constants/route.constants';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -21,6 +22,12 @@ const routes: Routes = [
         loadComponent: () => import('./core/register-page/register-page.component').then(m => m.RegisterPageComponent)
       }
     ]
+  },
+  {
+    path: '',
+    loadComponent: () => import('./core/layouts/site-layout/site-layout.component').then(m => m.SiteLayoutComponent),
+    canActivate: [AuthGuard],
+    children: []
   }
 ];
 
