@@ -5,7 +5,7 @@ import { EnvironmentConfig } from './utils';
 
 dotenv.config({
   debug: true,
-  path: path.resolve(__dirname, '../', 'config', 'config.env')
+  path: path.resolve(__dirname, '../', 'config', 'config.dev.env')
 });
 
 export const ENV_CONFIG: EnvironmentConfig = {
