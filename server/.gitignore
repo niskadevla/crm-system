@@ -16,7 +16,8 @@ node_modules
 Thumbs.db
 
 # dotenv
-./config
+config/*
+!config/config.base.env
 
 # uploaded files
 /uploads
