@@ -101,9 +101,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private showMessage(params: Params): void {
+    // TODO move texts to consts and add i18
     const mapMessages = new Map()
-        .set(AuthQueryParamsEnum.AccessDenied, () => {})
-        .set(AuthQueryParamsEnum.Registered, () => this.materialService.toast('Now we can login to the system'));
+        .set(AuthQueryParamsEnum.AccessDenied, () => this.materialService.toast('Please authorize in system!'))
+        .set(AuthQueryParamsEnum.Registered, () => this.materialService.toast('Now we can login to the system'))
+        .set(AuthQueryParamsEnum.SessionFailed, () => this.materialService.toast('Your session is expired.'));
 
     Object.keys(params).forEach((param: string) => mapMessages.get(param)());
   }
