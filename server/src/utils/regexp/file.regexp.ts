@@ -1,1 +1,0 @@
-export const allowedTypeRegExp = /image/g;
