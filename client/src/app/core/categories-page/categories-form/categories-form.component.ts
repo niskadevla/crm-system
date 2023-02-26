@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Params, RouterModule } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 
 import { catchError, filter, Observable, of, Subscription, switchMap, tap, throwError } from 'rxjs';
 
@@ -58,7 +58,8 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       private readonly route: ActivatedRoute,
       private readonly categoriesFacade: CategoriesFacade,
       private readonly materialService: MaterialService,
-      private readonly cdr: ChangeDetectorRef
+      private readonly cdr: ChangeDetectorRef,
+      private readonly router: Router
   ) {
   }
 
@@ -72,7 +73,18 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   public deleteCategory(): void {
+    const decision = window.confirm(`Are you sure that you want to delete the category "${this.category?.name}"`);
 
+    if (decision) {
+      this.subscription.add(
+          this.categoriesFacade.delete(this.category._id)
+              .subscribe({
+                next: () => this.materialService.toast('Category is removed successfully.'),
+                error: (error: any) => this.materialService.toast(error.error?.message),
+                complete: () => this.router.navigate([ROUTE_CONFIGS.categories.fullPath])
+              })
+      )
+    }
   }
 
   public onSubmit(): void {
@@ -91,12 +103,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
         category$
             .pipe(
                 filter<ICategory | null>(Boolean),
-                tap((category: ICategory) => {
-                  this.category = category;
-                  this.formCategories.enable()
-
-                  this.materialService.toast('Changes are saved.');
-                }),
+                tap(this.updateCategory.bind(this)),
                 catchError(this.handleError.bind(this))
             )
             .subscribe(() => {
@@ -167,6 +174,13 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       name: category.name
     });
     this.materialService.updateTextInputs();
+  }
+
+  private updateCategory(category: ICategory): void {
+    this.category = category;
+    this.formCategories.enable()
+
+    this.materialService.toast('Changes are saved.');
   }
   
   private handleError(error: any): Observable<never> {
