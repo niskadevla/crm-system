@@ -27,4 +27,8 @@ export class CategoriesFacade {
   public updateCategory(id: string, name: string, image?: File): Observable<ICategory> {
     return this.categoriesApi.update(id, name, image);
   }
+
+  public delete(id: string): Observable<ICategory> {
+    return this.categoriesApi.delete(id)
+  }
 }

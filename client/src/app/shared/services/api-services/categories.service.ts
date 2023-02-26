@@ -42,4 +42,8 @@ export class CategoriesService {
 
     return this.http.patch<ICategory>(`${urls.category}/${id}`, fd);
   }
+
+  public delete(id: string): Observable<ICategory> {
+    return this.http.delete<ICategory>(`${urls.category}/${id}`);
+  }
 }
