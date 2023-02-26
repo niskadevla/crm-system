@@ -20,4 +20,26 @@ export class CategoriesService {
   public getById(id: string): Observable<ICategory> {
     return this.http.get<ICategory>(`${urls.category}/${id}`);
   }
+
+  public create(name: string, image?: File): Observable<ICategory> {
+    const fd = new FormData();
+
+    if (image) {
+      fd.append('image', image, image.name)
+    }
+    fd.append('name', name);
+
+    return this.http.post<ICategory>(`${urls.category}`, fd);
+  }
+
+  public update(id: string, name: string, image?: File): Observable<ICategory> {
+    const fd = new FormData();
+
+    if (image) {
+      fd.append('image', image, image.name)
+    }
+    fd.append('name', name);
+
+    return this.http.patch<ICategory>(`${urls.category}/${id}`, fd);
+  }
 }

@@ -19,4 +19,12 @@ export class CategoriesFacade {
   public getCategoryById(id: string): Observable<ICategory> {
     return this.categoriesApi.getById(id);
   }
+
+  public createCategory(name: string, image?: File): Observable<ICategory> {
+    return this.categoriesApi.create(name, image);
+  }
+
+  public updateCategory(id: string, name: string, image?: File): Observable<ICategory> {
+    return this.categoriesApi.update(id, name, image);
+  }
 }
