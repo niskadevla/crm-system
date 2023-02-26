@@ -7,10 +7,16 @@ declare var M: any;
 })
 export class MaterialService {
   public toast(message: string) {
-    M.toast({html: message});
+    if (message) {
+      M.toast({html: message});
+    }
   }
 
   public initializeFloatingButton(ref: ElementRef) {
     M.FloatingActionButton.init(ref.nativeElement);
+  }
+
+  public updateTextInputs(): void {
+    M.updateTextFields();
   }
 }

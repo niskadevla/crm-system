@@ -47,6 +47,14 @@ const routes: Routes = [
       {
         path: ROUTE_CONFIGS.categories.path,
         loadComponent: () => import('./core/categories-page/categories-page.component').then(m => m.CategoriesPageComponent)
+      },
+      {
+        path: `${ROUTE_CONFIGS.categories.path}/${ROUTE_CONFIGS.newItem.path}`,
+        loadComponent: () => import('./core/categories-page/categories-form/categories-form.component').then(m => m.CategoriesFormComponent)
+      },
+      {
+        path: `${ROUTE_CONFIGS.categories.path}/:id`,
+        loadComponent: () => import('./core/categories-page/categories-form/categories-form.component').then(m => m.CategoriesFormComponent)
       }
     ]
   }
