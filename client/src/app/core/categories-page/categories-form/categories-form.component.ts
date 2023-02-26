@@ -76,10 +76,49 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
+    const categoryName = this.formCategories.value?.name;
+    let category$: Observable<ICategory | null>;
 
+    this.formCategories.disable();
+
+    if (this.isNew) {
+      category$ = this.categoriesFacade.createCategory(categoryName, this.image);
+    } else {
+      category$ = this.categoriesFacade.updateCategory(this.category?._id, categoryName, this.image);
+    }
+
+    this.subscription.add(
+        category$
+            .pipe(
+                filter<ICategory | null>(Boolean),
+                tap((category: ICategory) => {
+                  this.category = category;
+                  this.formCategories.enable()
+
+                  this.materialService.toast('Changes are saved.');
+                }),
+                catchError(this.handleError.bind(this))
+            )
+            .subscribe(() => {
+              this.cdr.markForCheck();
+            })
+    )
   }
 
   public onFileUpload($event: any): void {
+    const file: File = $event.target.files[0];
+    const reader = new FileReader();
+
+    this.image = file;
+    this.imagePreview = file.name
+
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+
+      this.cdr.markForCheck();
+    }
+
+    reader.readAsDataURL(file);
   }
 
   public triggerClick(): void {
@@ -101,12 +140,8 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
                 switchMap(this.getCategoryById.bind(this)),
                 tap(() => this.formCategories.enable()),
                 filter<ICategory | null>(Boolean),
-                tap(this.setCategoryValue.bind(this)),
-                catchError((error: any) => {
-                  this.materialService.toast(error.error?.message || '');
-
-                  return throwError(() => of(null))
-                }),
+                tap(this.setCategory.bind(this)),
+                catchError(this.handleError.bind(this)),
             )
             .subscribe(() => {
               this.cdr.markForCheck();
@@ -124,7 +159,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     return of(null);
   }
 
-  private setCategoryValue(category: ICategory): void {
+  private setCategory(category: ICategory): void {
     this.category = category;
     this.imagePreview = category.imageSrc ?? '';
 
@@ -132,5 +167,12 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       name: category.name
     });
     this.materialService.updateTextInputs();
+  }
+  
+  private handleError(error: any): Observable<never> {
+    this.materialService.toast(error.error?.message || '');
+    this.formCategories.enable();
+
+    return throwError(() => null);
   }
 }
