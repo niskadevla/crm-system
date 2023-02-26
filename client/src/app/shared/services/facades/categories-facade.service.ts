@@ -15,4 +15,8 @@ export class CategoriesFacade {
   }
 
   constructor(private categoriesApi: CategoriesService) { }
+
+  public getCategoryById(id: string): Observable<ICategory> {
+    return this.categoriesApi.getById(id);
+  }
 }
