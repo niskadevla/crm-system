@@ -8,7 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 
 import { catchError, filter, Observable, of, Subscription, switchMap, tap, throwError } from 'rxjs';
@@ -134,7 +134,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.formCategories = this.fb.group({
-      [CategoriesFormControlsEnums.Name]: [null]
+      [CategoriesFormControlsEnums.Name]: [null, [Validators.required]]
     })
   }
 
