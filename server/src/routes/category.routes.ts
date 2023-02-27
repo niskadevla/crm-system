@@ -11,4 +11,4 @@ categoryRoutes.get('/', passport.authenticate('jwt', { session: false }), httpGe
 categoryRoutes.get('/:id', passport.authenticate('jwt', { session: false }), httpGetById);
 categoryRoutes.delete('/:id', passport.authenticate('jwt', { session: false }), httpRemove);
 categoryRoutes.post('/', Upload.single(FormEnum.IMAGE), passport.authenticate('jwt', { session: false }), httpCreate);
-categoryRoutes.patch('/:id', passport.authenticate('jwt', { session: false }), httpUpdate);
+categoryRoutes.patch('/:id', Upload.single(FormEnum.IMAGE), passport.authenticate('jwt', { session: false }), httpUpdate);

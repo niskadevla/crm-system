@@ -15,4 +15,20 @@ export class CategoriesFacade {
   }
 
   constructor(private categoriesApi: CategoriesService) { }
+
+  public getCategoryById(id: string): Observable<ICategory> {
+    return this.categoriesApi.getById(id);
+  }
+
+  public createCategory(name: string, image?: File): Observable<ICategory> {
+    return this.categoriesApi.create(name, image);
+  }
+
+  public updateCategory(id: string, name: string, image?: File): Observable<ICategory> {
+    return this.categoriesApi.update(id, name, image);
+  }
+
+  public delete(id: string): Observable<ICategory> {
+    return this.categoriesApi.delete(id)
+  }
 }
