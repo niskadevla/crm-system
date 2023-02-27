@@ -1,0 +1,56 @@
+<form [formGroup]="form">
+  <div class="modal" #modal>
+     <div class="modal-content">
+       <h4 class="mb1">Add position</h4>
+       <div class="input-field">
+         <input
+           id="pos-name"
+           type="text"
+           [formControlName]="positionsFromControlsEnum.Name"
+           [class.invalid]="isNameInvalid"
+         >
+         <label for="pos-name">Position name</label>
+         <span
+           *ngIf="isNameInvalid"
+           class="helper-text red-text"
+         >
+           Name is required!
+         </span>
+       </div>
+       <div class="input-field">
+         <input
+           id="pos-cost"
+           type="number"
+           min="1"
+           [formControlName]="positionsFromControlsEnum.Cost"
+           [class.invalid]="isCostInvalid"
+         >
+         <label for="pos-cost">Price</label>
+         <span
+           *ngIf="isCostInvalid"
+           class="helper-text red-text"
+         >
+           Enter correct cost. Minimum value is {{minCost}}.
+         </span>
+       </div>
+     </div>
+     <div class="modal-footer">
+       <button
+         type="button"
+         class="modal-action waves-effect waves-black btn-flat"
+         [disabled]="isDisabledCancelBtn"
+         (click)="cancel()"
+       >
+         Cancel
+       </button>
+       <button
+         class="modal-action btn waves-effect"
+         type="submit"
+         [disabled]="isDisabledSaveBtn"
+         (click)="submit()"
+       >
+         Save
+       </button>
+     </div>
+  </div>
+</form>
