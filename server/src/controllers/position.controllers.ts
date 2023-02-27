@@ -8,7 +8,7 @@ export const httpGetByCategoryId = async (
 ) => {
   try {
     const payload: Partial<IPosition> = {
-      category: +params.categoryId,
+      category: params.categoryId,
       user: user?.id
     };
     const positions = await getPositionsByFilter(payload);
@@ -34,7 +34,7 @@ export const httpCreate = async ({ body, user }: IPostRequest<Omit<IPosition, 'u
     const payload: IPosition = {
       name: body.name,
       cost: body.cost,
-      category: +body.category,
+      category: body.category,
       user: user?.id
     };
     const position = await createPosition(payload);
