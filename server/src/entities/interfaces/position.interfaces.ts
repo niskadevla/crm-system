@@ -1,6 +1,6 @@
 export interface IPosition {
   name: string;
   cost: number;
-  category: number;
+  category: string;
   user?: string;
 }
