@@ -1,1 +1,47 @@
-<p>positions-form works!</p>
+<div class="row">
+  <div class="col s12">
+    <div class="page-subtitle">
+      <h4>Positions:</h4>
+      <button
+        class="waves-effect waves-light btn grey darken-1 btn-small"
+        type="button"
+        (click)="onAddPosition()"
+      >
+        Add position
+      </button>
+    </div>
+
+    <div *ngIf="!loading; else loader">
+      <div class="collection" *ngIf="positions?.length; else empty">
+        <a
+          *ngFor="let position of positions"
+          class="collection-item collection-item-icon"
+          (click)="onSelectPosition(position)"
+        >
+          <span>
+              {{position.name}} - <strong>{{position.cost}}{{currency}}</strong>
+          </span>
+          <span>
+              <i class="material-icons" (click)="onDeletePosition($event, position)">delete</i>
+          </span>
+        </a>
+      </div>
+      <ng-template #empty>
+        <div class="center">No positions</div>
+      </ng-template>
+    </div>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</div>
+
+<div class="row">
+  <app-position-modal
+    #positionModal
+    [categoryId]="categoryId"
+    [position]="currentPosition"
+    (onCreate)="onCreate($event)"
+    (onUpdate)="onUpdate($event)"
+  ></app-position-modal>
+</div>

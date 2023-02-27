@@ -5,5 +5,6 @@ const {apiRoot} = environment;
 export const urls = {
   register: `${apiRoot}/auth/register`,
   login: `${apiRoot}/auth/login`,
-  category: `${apiRoot}/category`
+  category: `${apiRoot}/category`,
+  position: `${apiRoot}/position`,
 }
