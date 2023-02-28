@@ -1,4 +1,4 @@
-<div *ngIf="categories$ | async as categories; else loader">
+<ng-container *ngIf="categories$ | async as categories">
   <div class="frow order-row" *ngIf="categories.length; else empty">
     <div
       *ngFor="let category of categories"
@@ -20,8 +20,4 @@
   <ng-template #empty>
     <div class="center">Category is empty</div>
   </ng-template>
-</div>
-
-<ng-template #loader>
-  <app-loader></app-loader>
-</ng-template>
+</ng-container>

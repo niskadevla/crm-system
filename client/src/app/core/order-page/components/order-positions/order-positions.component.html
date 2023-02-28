@@ -1,4 +1,4 @@
-<div *ngIf="positions$ | async as positions; else loader">
+<ng-container *ngIf="positions$ | async as positions">
   <table class="highlight" *ngIf="positions.length; else empty">
     <thead>
     <tr>
@@ -36,8 +36,4 @@
   <ng-template #empty>
     <div class="center">Positions are empty</div>
   </ng-template>
-</div>
-
-<ng-template #loader>
-  <app-loader></app-loader>
-</ng-template>
+</ng-container>

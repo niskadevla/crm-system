@@ -10,7 +10,7 @@
 
 <div
   class="row"
-  *ngIf="categories$ | async as categories; else loader"
+  *ngIf="categories$ | async as categories"
 >
   <div class="col s12">
     <div class="collection" *ngIf="categories?.length; else empty">
@@ -29,8 +29,3 @@
     </ng-template>
   </div>
 </div>
-
-<ng-template #loader>
-  <app-loader></app-loader>
-</ng-template>
-
