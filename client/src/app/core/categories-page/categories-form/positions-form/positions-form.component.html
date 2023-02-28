@@ -36,12 +36,10 @@
   </div>
 </div>
 
-<div class="row">
-  <app-position-modal
-    #positionModal
-    [categoryId]="categoryId"
-    [position]="currentPosition"
-    (onCreate)="onCreate($event)"
-    (onUpdate)="onUpdate($event)"
-  ></app-position-modal>
-</div>
+<app-position-modal
+  #positionModal
+  [categoryId]="categoryId"
+  [position]="currentPosition"
+  (onCreate)="onCreate($event)"
+  (onUpdate)="onUpdate($event)"
+></app-position-modal>

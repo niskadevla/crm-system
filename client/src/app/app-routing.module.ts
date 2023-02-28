@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 import { ROUTE_CONFIGS } from './shared/constants/route.constants';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { OrderCategoriesComponent } from './core/order-page/components/order-categories/order-categories.component';
+import { OrderPositionsComponent } from './core/order-page/components/order-positions/order-positions.component';
 
 const routes: Routes = [
   {
@@ -42,7 +44,11 @@ const routes: Routes = [
       },
       {
         path: ROUTE_CONFIGS.order.path,
-        loadComponent: () => import('./core/order-page/order-page.component').then(m => m.OrderPageComponent)
+        loadComponent: () => import('./core/order-page/order-page.component').then(m => m.OrderPageComponent),
+        children: [
+          {path: '', component: OrderCategoriesComponent},
+          {path: ':id', component: OrderPositionsComponent}
+        ]
       },
       {
         path: ROUTE_CONFIGS.categories.path,

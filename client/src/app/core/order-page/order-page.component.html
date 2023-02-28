@@ -1,1 +1,21 @@
-<p>order-page works!</p>
+<div class="page-title">
+  <h4 *ngIf="isRoot">Order</h4>
+  <h4 *ngIf="!isRoot">
+    <a [routerLink]="routeConfigs.order.fullPath">Order</a>
+    <i class="material-icons">keyboard_arrow_right</i>
+    Add product
+  </h4>
+  <button
+    *ngIf="list$ | async as list"
+    class="waves-effect btn grey darken-1"
+    [disabled]="!list.length"
+    (click)="openModal()"
+  >
+    Complete
+  </button>
+</div>
+
+<router-outlet></router-outlet>
+
+<app-order-modal #orderModal>
+</app-order-modal>
