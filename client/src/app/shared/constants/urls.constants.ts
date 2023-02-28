@@ -7,4 +7,5 @@ export const urls = {
   login: `${apiRoot}/auth/login`,
   category: `${apiRoot}/category`,
   position: `${apiRoot}/position`,
+  order: `${apiRoot}/order`,
 }
