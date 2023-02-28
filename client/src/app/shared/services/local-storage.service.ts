@@ -12,7 +12,7 @@ export class LocalStorageService {
   }
 
   public getItem<T>(key: string): T | null {
-    return JSON.parse(JSON.stringify(localStorage.getItem(key)));
+    return JSON.parse((localStorage.getItem(key) ?? ''));
   }
 
   public clearStorage(): void {
