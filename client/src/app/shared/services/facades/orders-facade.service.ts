@@ -15,4 +15,8 @@ export class OrdersFacade {
   public createOrder(order: IOrder): Observable<IOrder> {
     return this.ordersServiceApi.createOrder(order);
   }
+
+  public getOrders(params: any): Observable<IOrder[]> {
+    return this.ordersServiceApi.getOrders(params);
+  }
 }
