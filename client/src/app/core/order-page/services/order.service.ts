@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { IPosition, IOrderPosition } from '../../../shared/models/entities.models';
 import { MIN_QUANTITY } from '../consts/order-page.consts';
 import { findItemById, removeItemById } from '../../../shared/utils/common.functions';
+import { ComputePricePipe } from '../../../shared/pipes/compute-price/compute-price.pipe';
 
 @Injectable()
 export class OrderService {
@@ -16,6 +18,9 @@ export class OrderService {
 
   public get price$(): Observable<number> {
     return this._price$$.asObservable();
+  }
+
+  constructor(private computePricePipe: ComputePricePipe) {
   }
 
   public addOrderPosition({name, cost, quantity = MIN_QUANTITY, _id = ''}: IPosition): void {
@@ -43,10 +48,7 @@ export class OrderService {
   }
 
   private computePrice(): void {
-    const price = this._list$$.getValue().reduce((total: number, {
-      quantity = MIN_QUANTITY,
-      cost
-    }: IOrderPosition) => (total += quantity * cost), 0);
+    const price = this.computePricePipe.transform(this._list$$.getValue());
 
     this._price$$.next(price);
   }
