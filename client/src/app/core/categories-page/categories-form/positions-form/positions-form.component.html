@@ -11,7 +11,7 @@
       </button>
     </div>
 
-    <div *ngIf="!loading; else loader">
+    <ng-container *ngIf="!loading">
       <div class="collection" *ngIf="positions?.length; else empty">
         <a
           *ngFor="let position of positions"
@@ -29,10 +29,7 @@
       <ng-template #empty>
         <div class="center">No positions</div>
       </ng-template>
-    </div>
-    <ng-template #loader>
-      <app-loader></app-loader>
-    </ng-template>
+    </ng-container>
   </div>
 </div>
 
