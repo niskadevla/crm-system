@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -15,5 +15,15 @@ export class OrdersService {
 
   public createOrder(order: IOrder): Observable<IOrder> {
     return this.http.post<IOrder>(urls.order, order);
+  }
+
+  public getOrders(params: any = {}): Observable<IOrder[]> {
+    const httpParams = new HttpParams({
+      fromObject: params
+    });
+
+    return this.http.get<IOrder[]>(urls.order, {
+      params: httpParams
+    })
   }
 }
