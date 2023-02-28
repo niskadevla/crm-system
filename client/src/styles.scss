@@ -1,2 +1,15 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "theme/crm-system-theme/styles/styles.min.css";
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  z-index: 99999;
+}

@@ -55,16 +55,16 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.initForm();
     this.initQueryParamsListener();
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  public onSubmit() {
+  public onSubmit(): void {
     this.loginForm.disable();
 
     this.subscription.add(
