@@ -16,4 +16,16 @@ export interface IPosition {
   category: string;
   user?: string;
   _id?: string;
+  quantity?: number;
+}
+
+export interface IOrderPosition extends Pick<IPosition, 'name' | 'cost' | '_id' | 'quantity'> {
+}
+
+export interface IOrder {
+  list: IOrderPosition[];
+  date?: Date;
+  order?: number;
+  user?: string;
+  _id?: string;
 }

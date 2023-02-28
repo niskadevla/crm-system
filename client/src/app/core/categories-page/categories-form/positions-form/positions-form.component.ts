@@ -16,6 +16,7 @@ import { IPosition } from '../../../../shared/models/entities.models';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 import { PositionModalComponent } from '../position-modal/position-modal.component';
 import { MaterialService } from '../../../../shared/services/material.service';
+import { CURRENCY } from '../../../../shared/constants/common.constants';
 
 @Component({
   selector: 'app-positions-form',
@@ -30,7 +31,7 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
 
   @Input() public categoryId!: string;
 
-  public currency = '$';
+  public currency = CURRENCY;
   public loading = false;
   public positions!: IPosition[];
   public currentPosition!: IPosition;
