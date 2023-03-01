@@ -17,5 +17,5 @@ export const getOrdersByFilterWithPagination = async (filter: any, queryPaginati
 };
 
 export const getAllOrdersByFilter = async (filter: any, direction: SortOrderEnum = SortOrderEnum.Asc) => {
-  return OrdersModel.find(filter).sort(direction);
+  return OrdersModel.find(filter).sort({date: direction});
 }
