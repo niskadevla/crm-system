@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { IRevenueAnalytics } from '../../models/entities.models';
+import { IAnalytics, IRevenueAnalytics } from '../../models/entities.models';
 import { urls } from '../../constants/urls.constants';
 
 @Injectable({
@@ -14,10 +14,10 @@ export class AnalyticsService {
   constructor(private http: HttpClient) { }
 
   public getOverview(): Observable<IRevenueAnalytics> {
-    return this.http.get<IRevenueAnalytics>(urls.overview)
+    return this.http.get<IRevenueAnalytics>(`${urls.analytics}/overview`)
   }
 
-  public getAnalytics() {
-
+  public getAnalytics(): Observable<IAnalytics> {
+    return this.http.get<IAnalytics>(`${urls.analytics}/analytics`)
   }
 }

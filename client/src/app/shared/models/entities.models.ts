@@ -47,3 +47,14 @@ export interface IRevenueStatistic {
   yesterday: number;
   isHigher: boolean;
 }
+
+export interface IAnalytics {
+  averageOrdersPerDay: number;
+  chart: IChart[];
+}
+
+export interface IChart {
+  label: string;
+  numberOfOrders: number;
+  revenue: number;
+}
