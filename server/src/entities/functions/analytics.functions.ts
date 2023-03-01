@@ -15,16 +15,16 @@ export const calculatePrice = (orders: IOrder[]): number => {
 export const getOrdersMap = (orders: IOrder[] = []): Record<string, IOrder[]> => {
   const daysOrders: Record<string, IOrder[]> = {};
 
-orders.forEach((order: IOrder) => {
-  const date = moment(order.date).format(DEFAULT_DATE_FORMAT);
-  const today = moment().format(DEFAULT_DATE_FORMAT);
+  orders.forEach((order: IOrder) => {
+    const date = moment(order.date).format(DEFAULT_DATE_FORMAT);
+    const today = moment().format(DEFAULT_DATE_FORMAT);
 
-  if (date === today) {
-    return;
-  }
+    if (date === today) {
+      return;
+    }
 
-  (daysOrders[date] ?? []).push(order);
-});
+    daysOrders[date] = [...(daysOrders[date] ?? []), order];
+  });
 
-return daysOrders;
+  return daysOrders;
 }
