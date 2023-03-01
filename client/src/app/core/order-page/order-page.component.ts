@@ -8,6 +8,7 @@ import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
 import { OrderModalComponent } from './components/order-modal/order-modal.component';
 import { OrderService } from './services/order.service';
 import { IOrderPosition } from '../../shared/models/entities.models';
+import { ComputePricePipe } from '../../shared/pipes/compute-price/compute-price.pipe';
 
 @Component({
   selector: 'app-order-page',
@@ -15,7 +16,7 @@ import { IOrderPosition } from '../../shared/models/entities.models';
   imports: [CommonModule, RouterModule, OrderModalComponent],
   templateUrl: './order-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [OrderService]
+  providers: [OrderService, ComputePricePipe]
 })
 export class OrderPageComponent implements OnInit, OnDestroy {
   @ViewChild('orderModal') orderModal!: OrderModalComponent;
