@@ -3,3 +3,7 @@ export const findItemById = <T extends { _id?: string | number }>(list: T[], id:
 
 export const removeItemById = <T extends { _id?: string | number }>(list: T[], id: string | number): any =>
     list.filter(p => p._id !== id);
+
+export const removeFalsyFromObj = (obj: object) => Object.fromEntries(
+    Object.entries(obj).filter(([_, value]) => Boolean(value))
+);
