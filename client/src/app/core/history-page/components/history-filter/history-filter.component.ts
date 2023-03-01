@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IFilter } from '../../../../shared/models/entities.models';
 import { MaterialDatepicker, MaterialService } from '../../../../shared/services/material.service';
+import { removeFalsyFromObj } from '../../../../shared/utils/common.functions';
 
 @Component({
   selector: 'app-history-filter',
@@ -57,8 +58,7 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
       end: this.end.date
     };
 
-    // Use JSON in order to remove undefined
-    this.onFilter.emit(JSON.parse(JSON.stringify(filter)));
+    this.onFilter.emit(removeFalsyFromObj(filter));
   }
 
   private validate(): void {
