@@ -7,7 +7,7 @@ export const httpOverview = async ({user}: IGetRequest, res: any) => {
   try {
     const allOrders = await getAllOrdersByFilter({user: user?.id})
 
-    return res.status(200).json(new RevenueAnalytics(allOrders as IOrder[]));
+    res.status(200).json(new RevenueAnalytics(allOrders as IOrder[]));
   } catch (err: unknown) {
     return errorHandler(res, err as Error);
   }
