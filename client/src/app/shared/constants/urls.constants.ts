@@ -8,4 +8,6 @@ export const urls = {
   category: `${apiRoot}/category`,
   position: `${apiRoot}/position`,
   order: `${apiRoot}/order`,
+  analytics: `${apiRoot}/analytics`,
+  get overview() {return `${this.analytics}/overview`} ,
 }
