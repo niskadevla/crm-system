@@ -9,5 +9,4 @@ export const urls = {
   position: `${apiRoot}/position`,
   order: `${apiRoot}/order`,
   analytics: `${apiRoot}/analytics`,
-  get overview() {return `${this.analytics}/overview`} ,
 }
