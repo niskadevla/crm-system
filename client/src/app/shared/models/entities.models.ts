@@ -29,3 +29,9 @@ export interface IOrder {
   user?: string;
   _id?: string;
 }
+
+export interface IFilter {
+  start?: Date;
+  end?: Date;
+  order?: number;
+}

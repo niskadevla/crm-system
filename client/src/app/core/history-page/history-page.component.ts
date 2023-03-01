@@ -14,9 +14,10 @@ import { Subscription } from 'rxjs';
 import { MaterialInstance, MaterialService } from '../../shared/services/material.service';
 import { OrdersFacade } from '../../shared/services/facades/orders-facade.service';
 import { DEFAULT_PAGE_LIMIT, DEFAULT_PAGE_NUMBER } from './constants/request.consts';
-import { IOrder } from '../../shared/models/entities.models';
+import { IFilter, IOrder } from '../../shared/models/entities.models';
 import { HistoryListComponent } from './components/history-list/history-list.component';
 import { HistoryFilterComponent } from './components/history-filter/history-filter.component';
+import { IQueryParams } from '../../shared/models/request.models';
 
 @Component({
   selector: 'app-history-page',
@@ -32,10 +33,15 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
   public isFilterVisible = false;
   public orders: IOrder[] = [];
   public noMoreOrders = false;
+  public filter: IFilter = {};
 
   private page = DEFAULT_PAGE_NUMBER;
   private limit = DEFAULT_PAGE_LIMIT;
   private readonly subscription = new Subscription();
+
+  public get isFiltered(): boolean {
+    return !!Object.keys(this.filter).length
+  }
 
   constructor(
       private readonly materialService: MaterialService,
@@ -57,7 +63,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tooltip = this.materialService.initTooltip(this.tooltipRef);
   }
 
-  public toggleTooltip(): void {
+  public toggleFilter(): void {
     this.isFilterVisible = !this.isFilterVisible;
   }
 
@@ -66,8 +72,16 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getOrders();
   }
 
+  public applyFilter(filter: IFilter): void {
+    this.orders = [];
+    this.page = DEFAULT_PAGE_NUMBER;
+    this.filter = filter;
+    this.getOrders();
+  }
+
   private getOrders() {
-    const params = {
+    const params: IQueryParams = {
+      ...this.filter,
       page: this.page,
       limit: this.limit
     }

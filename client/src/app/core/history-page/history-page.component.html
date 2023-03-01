@@ -6,15 +6,19 @@
     data-position="left"
     #tooltip
     [class.active]="isFilterVisible"
-    (click)="toggleTooltip()"
+    [class.red]="isFiltered"
+    (click)="toggleFilter()"
   >
     <i class="material-icons">filter_list</i>
   </button>
 </div>
 
-<ng-container *ngIf="orders?.length; else empty">
-  <app-history-filter *ngIf="isFilterVisible"></app-history-filter>
+<app-history-filter
+  *ngIf="isFilterVisible"
+  (onFilter)="applyFilter($event)"
+></app-history-filter>
 
+<ng-container *ngIf="orders?.length; else empty">
   <app-history-list [orders]="orders"></app-history-list>
 
   <div
