@@ -15,17 +15,6 @@
     "test": "npm test --prefix server && npm test --prefix client",
     "prepare": "husky install client/.husky"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "prettier --write",
-      "eslint"
-    ]
-  },
   "keywords": [
     "express",
     "angular",
