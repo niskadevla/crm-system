@@ -17,7 +17,7 @@ Thumbs.db
 
 # dotenv
 config/*
-!config/config.base.env
+!config/config.env
 
 # uploaded files
 /uploads

@@ -1,11 +1,13 @@
 import path from 'path';
 import dotenv from 'dotenv';
 
-import { EnvironmentConfig } from './utils';
+import { EnvironmentConfig, NodeEnvEnums } from './utils';
+
+const configPath = process.env.NODE_ENV === NodeEnvEnums.Prod ? 'config.prod.env' : 'config.dev.env';
 
 dotenv.config({
   debug: true,
-  path: path.resolve(__dirname, '../', 'config', 'config.dev.env')
+  path: path.resolve(__dirname, '../', 'config', configPath)
 });
 
 export const ENV_CONFIG: EnvironmentConfig = {
