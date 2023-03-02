@@ -13,11 +13,7 @@ import { LoaderService } from './shared/services/loader.service';
 export class AppComponent implements OnInit {
   public spinner$: Observable<number> = this.loadService.spinner$;
 
-  constructor(
-      private readonly authFacadeService: AuthFacadeService,
-      private readonly loadService: LoaderService
-  ) {
-  }
+  constructor(private readonly authFacadeService: AuthFacadeService, private readonly loadService: LoaderService) {}
 
   public ngOnInit(): void {
     this.authFacadeService.initToken();
