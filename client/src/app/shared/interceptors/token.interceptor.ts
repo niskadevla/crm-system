@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor, HttpErrorResponse
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { catchError, Observable, throwError } from 'rxjs';
@@ -15,10 +10,9 @@ import { AuthQueryParamsEnum } from '../enums/query-params.enums';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-
   constructor(private authService: AuthService, private router: Router) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (this.authService.isAuthenticated) {
       request = request.clone({
         setHeaders: {
@@ -27,10 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request)
-        .pipe(
-            catchError(this.handleAuthError.bind(this))
-        );
+    return next.handle(request).pipe(catchError(this.handleAuthError.bind(this)));
   }
 
   private handleAuthError(error: HttpErrorResponse): Observable<never> {
@@ -46,6 +37,6 @@ export class TokenInterceptor implements HttpInterceptor {
       queryParams: {
         [AuthQueryParamsEnum.SessionFailed]: true
       }
-    })
+    });
   }
 }

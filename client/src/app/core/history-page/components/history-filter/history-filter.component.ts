@@ -27,10 +27,10 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
   @ViewChild('start') private readonly startRef!: ElementRef;
   @ViewChild('end') private readonly endRef!: ElementRef;
 
-  @Output() public readonly onFilter = new EventEmitter<IFilter>();
+  @Output() public readonly filter: EventEmitter<IFilter> = new EventEmitter<IFilter>();
 
   public order!: number;
-  public isValid = true;
+  public isValid: boolean = true;
 
   private start!: MaterialDatepicker;
   private end!: MaterialDatepicker;
@@ -58,7 +58,7 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
       end: this.end.date
     };
 
-    this.onFilter.emit(removeFalsyFromObj(filter));
+    this.filter.emit(removeFalsyFromObj(filter));
   }
 
   private validate(): void {
@@ -66,6 +66,7 @@ export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
 
     if (!this.start.date || !this.end.date) {
       this.isValid = true;
+
       return;
     }
 

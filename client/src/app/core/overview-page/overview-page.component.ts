@@ -28,8 +28,8 @@ import { CURRENCY } from '../../shared/constants/common.constants';
 export class OverviewPageComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('tapTarget') private readonly tapTargetRef!: ElementRef;
 
-  public readonly dateFormat = DATE_FORMAT;
-  public readonly currency = CURRENCY;
+  public readonly dateFormat: string = DATE_FORMAT;
+  public readonly currency: string = CURRENCY;
 
   public tapTarget!: MaterialInstance;
   public overviewData$!: Observable<IRevenueAnalytics>;

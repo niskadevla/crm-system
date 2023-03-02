@@ -8,6 +8,7 @@ import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
 import { ICategory } from '../../shared/models/entities.models';
 import { CategoriesFacade } from '../../shared/services/facades/categories-facade.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { IRoutesConfig } from '../../shared/models/route.models';
 
 @Component({
   selector: 'app-categories-page',
@@ -18,7 +19,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 })
 export class CategoriesPageComponent {
   public categories$: Observable<ICategory[]> = this.categoriesFacade.getAllCategories;
-  public routeConfigs = ROUTE_CONFIGS;
+  public routeConfigs: IRoutesConfig = ROUTE_CONFIGS;
 
   constructor(private categoriesFacade: CategoriesFacade) {
   }

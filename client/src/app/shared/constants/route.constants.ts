@@ -1,4 +1,4 @@
-import { IRouteConfig } from '../models/route.models';
+import { IRouteConfig, IRoutesConfig } from '../models/route.models';
 
 const login: IRouteConfig = {
   name: 'login',
@@ -21,34 +21,34 @@ const overview: IRouteConfig = {
 const analytics: IRouteConfig = {
   name: 'analytics',
   path: 'analytics',
-  fullPath: '/analytics',
+  fullPath: '/analytics'
 }
 
 const history: IRouteConfig = {
   name: 'history',
   path: 'history',
-  fullPath: '/history',
+  fullPath: '/history'
 }
 
 const order: IRouteConfig = {
   name: 'order',
   path: 'order',
-  fullPath: '/order',
+  fullPath: '/order'
 };
 
 const categories: IRouteConfig = {
   name: 'categories',
   path: 'categories',
-  fullPath: '/categories',
+  fullPath: '/categories'
 };
 
 const newItem: IRouteConfig = {
   name: 'new',
   path: 'new',
-  fullPath: '/new',
+  fullPath: '/new'
 }
 
-export const ROUTE_CONFIGS = {
+export const ROUTE_CONFIGS: IRoutesConfig = {
   login,
   register,
   overview,

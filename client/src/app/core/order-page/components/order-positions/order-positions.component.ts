@@ -22,8 +22,8 @@ import { LoaderComponent } from '../../../../shared/components/loader/loader.com
 })
 export class OrderPositionsComponent implements OnInit {
   public positions$!: Observable<IPosition[]>
-  public currency = CURRENCY;
-  public minQuantity = MIN_QUANTITY;
+  public currency: string = CURRENCY;
+  public minQuantity: number = MIN_QUANTITY;
 
   constructor(
       private readonly route: ActivatedRoute,
@@ -55,6 +55,6 @@ export class OrderPositionsComponent implements OnInit {
   }
 
   private positionMapper(positions: IPosition[]): IPosition[] {
-    return positions.map(position => ({...position, quantity: MIN_QUANTITY}));
+    return positions.map((position: IPosition) => ({...position, quantity: MIN_QUANTITY}));
   }
 }

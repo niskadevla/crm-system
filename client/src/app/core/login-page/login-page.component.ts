@@ -5,11 +5,12 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 
-import { LoginFormControlsEnums } from './enums/login-form.enums';
 import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
 import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
 import { AuthQueryParamsEnum } from '../../shared/enums/query-params.enums';
 import { MaterialService } from '../../shared/services/material.service';
+
+import { LoginFormControlsEnums } from './enums/login-form.enums';
 
 @Component({
   standalone: true,
@@ -21,7 +22,7 @@ import { MaterialService } from '../../shared/services/material.service';
 export class LoginPageComponent implements OnInit, OnDestroy {
 
   public loginForm!: FormGroup;
-  public readonly loginFormControlsEnums = LoginFormControlsEnums;
+  public readonly loginFormControlsEnums: typeof LoginFormControlsEnums = LoginFormControlsEnums;
 
   private subscription: Subscription = new Subscription();
 
@@ -96,16 +97,17 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   private handleError(error: any): Observable<any> {
     this.materialService.toast(error?.error?.message)
     this.loginForm.enable();
+
     return of('');
   }
 
   private showMessage(params: Params): void {
     // TODO move texts to consts and add i18
-    const mapMessages = new Map()
+    const mapMessages: Map<string, () => void> = new Map()
         .set(AuthQueryParamsEnum.AccessDenied, () => this.materialService.toast('Please authorize in system!'))
         .set(AuthQueryParamsEnum.Registered, () => this.materialService.toast('Now we can login to the system'))
         .set(AuthQueryParamsEnum.SessionFailed, () => this.materialService.toast('Your session is expired.'));
 
-    Object.keys(params).forEach((param: string) => mapMessages.get(param)());
+    Object.keys(params).forEach((param: string) => mapMessages.get(param)?.());
   }
 }
