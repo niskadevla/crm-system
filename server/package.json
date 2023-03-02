@@ -4,8 +4,8 @@
   "description": "CRM system API",
   "main": "src/server.ts",
   "scripts": {
-    "start": "node src/server",
-    "watch": "nodemon src/server",
+    "start": "cross-env NODE_ENV=production src/server",
+    "watch": "cross-env NODE_ENV=development nodemon src/server",
     "test": "jest",
     "test:debug": "jest --detectOpenHandles",
     "test-watch": "jest --watch"
@@ -16,6 +16,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "helmet": "^6.0.1",
