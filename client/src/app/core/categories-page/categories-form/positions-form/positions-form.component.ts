@@ -31,12 +31,12 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
 
   @Input() public categoryId!: string;
 
-  public currency = CURRENCY;
-  public loading = false;
+  public currency: string = CURRENCY;
+  public loading: boolean = false;
   public positions!: IPosition[];
   public currentPosition!: IPosition;
 
-  private subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
 
   constructor(
       private readonly positionsFacade: PositionsFacade,
@@ -63,7 +63,7 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
 
   public onDeletePosition(event: Event, position: IPosition): void {
     event.stopPropagation();
-    const decision = window.confirm(`Do you want to delete position "${position.name}"`)
+    const decision: boolean = window.confirm(`Do you want to delete position "${position.name}"`)
 
     if (decision) {
       this.loading = true;
@@ -75,7 +75,7 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
                   this.getAllPositions();
                   this.materialService.toast('Successfully deleted.')
                 },
-                error: err => this.materialService.toast(err.error?.message)
+                error: (err: any) => this.materialService.toast(err.error?.message)
               })
       )
     }
@@ -91,7 +91,7 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
                 this.getAllPositions();
                 this.materialService.toast('Position`s been created.')
               },
-              error: err => this.materialService.toast(err.error?.message),
+              error: (err: any) => this.materialService.toast(err.error?.message),
               complete: () => this.positionModal.completed()
             })
     );
@@ -107,7 +107,7 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
                 this.getAllPositions();
                 this.materialService.toast('Changes`s been updated.')
               },
-              error: err => this.materialService.toast(err.error?.message),
+              error: (err: any) => this.materialService.toast(err.error?.message),
               complete: () => this.positionModal.completed()
             })
     );

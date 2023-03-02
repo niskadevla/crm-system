@@ -1,3 +1,3 @@
-export const DEFAULT_PAGE_NUMBER = 1;
+export const DEFAULT_PAGE_NUMBER: number = 1;
 
-export const DEFAULT_PAGE_LIMIT = 2;
+export const DEFAULT_PAGE_LIMIT: number = 2;

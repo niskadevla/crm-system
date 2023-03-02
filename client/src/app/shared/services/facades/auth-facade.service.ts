@@ -23,7 +23,7 @@ export class AuthFacadeService {
   }
 
   public initToken(): void {
-    const token = this.storageService.getItem<IToken>('auth-token');
+    const token: IToken | null = this.storageService.getItem<IToken>('auth-token');
 
     this.authApi.setToken(token);
   }

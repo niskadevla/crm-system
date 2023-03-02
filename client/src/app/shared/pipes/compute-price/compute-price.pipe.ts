@@ -8,7 +8,7 @@ import { MIN_QUANTITY } from '../../../core/order-page/consts/order-page.consts'
 })
 export class ComputePricePipe implements PipeTransform {
 
-  transform(list: IOrderPosition[]): number {
+  public transform(list: IOrderPosition[]): number {
     return list.reduce((total: number, {
       quantity = MIN_QUANTITY,
       cost

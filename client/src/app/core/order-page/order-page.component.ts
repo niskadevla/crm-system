@@ -5,10 +5,12 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
 import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
-import { OrderModalComponent } from './components/order-modal/order-modal.component';
-import { OrderService } from './services/order.service';
 import { IOrderPosition } from '../../shared/models/entities.models';
 import { ComputePricePipe } from '../../shared/pipes/compute-price/compute-price.pipe';
+import { IRoutesConfig } from '../../shared/models/route.models';
+
+import { OrderModalComponent } from './components/order-modal/order-modal.component';
+import { OrderService } from './services/order.service';
 
 @Component({
   selector: 'app-order-page',
@@ -19,17 +21,17 @@ import { ComputePricePipe } from '../../shared/pipes/compute-price/compute-price
   providers: [OrderService, ComputePricePipe]
 })
 export class OrderPageComponent implements OnInit, OnDestroy {
-  @ViewChild('orderModal') orderModal!: OrderModalComponent;
+  @ViewChild('orderModal') private orderModal!: OrderModalComponent;
 
-  public isRoot = true;
-  public routeConfigs = ROUTE_CONFIGS;
+  public isRoot: boolean = true;
+  public routeConfigs: IRoutesConfig = ROUTE_CONFIGS;
   public readonly list$: Observable<IOrderPosition[]> = this.orderService.list$;
 
-  private subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
 
   constructor(
       public readonly orderService: OrderService,
-      private readonly router: Router,
+      private readonly router: Router
   ) {
   }
 
@@ -47,7 +49,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 
   private initRouterListener(): void {
     this.subscription.add(
-        this.router.events.subscribe(event => {
+        this.router.events.subscribe((event: any) => {
           if (event instanceof NavigationEnd) {
             this.isRoot = this.router.url === ROUTE_CONFIGS.order.fullPath;
           }

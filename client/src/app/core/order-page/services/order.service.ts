@@ -25,10 +25,10 @@ export class OrderService {
 
   public addOrderPosition({name, cost, quantity = MIN_QUANTITY, _id = ''}: IPosition): void {
     const orderPosition: Required<IOrderPosition> = {name, cost, quantity, _id};
-    const sameOrderPosition = findItemById(this._list$$.getValue(), orderPosition._id);
+    const sameOrderPosition: IOrderPosition | undefined = findItemById(this._list$$.getValue(), orderPosition._id);
 
     if (sameOrderPosition) {
-      sameOrderPosition.quantity += orderPosition.quantity;
+      (sameOrderPosition.quantity as number) += orderPosition.quantity;
     } else {
       this._list$$.next([...this._list$$.getValue(), orderPosition]);
     }
@@ -48,7 +48,7 @@ export class OrderService {
   }
 
   private computePrice(): void {
-    const price = this.computePricePipe.transform(this._list$$.getValue());
+    const price: number = this.computePricePipe.transform(this._list$$.getValue());
 
     this._price$$.next(price);
   }

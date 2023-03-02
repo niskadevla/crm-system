@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoaderService {
-  private _spinner = 0;
+  private _spinner: number = 0;
   private _spinner$$: BehaviorSubject<number> = new BehaviorSubject<number>(this._spinner);
 
   public get spinner$(): Observable<number> {

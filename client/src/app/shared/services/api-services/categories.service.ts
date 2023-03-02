@@ -22,7 +22,7 @@ export class CategoriesService {
   }
 
   public create(name: string, image?: File): Observable<ICategory> {
-    const fd = new FormData();
+    const fd: FormData = new FormData();
 
     if (image) {
       fd.append('image', image, image.name)
@@ -33,7 +33,7 @@ export class CategoriesService {
   }
 
   public update(id: string, name: string, image?: File): Observable<ICategory> {
-    const fd = new FormData();
+    const fd: FormData = new FormData();
 
     if (image) {
       fd.append('image', image, image.name)
