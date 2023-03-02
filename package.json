@@ -14,6 +14,11 @@
     "pm2": "pm2 start server -l logs/server-logs.txt -i max",
     "test": "npm test --prefix server && npm test --prefix client"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "keywords": [
     "express",
     "angular",
@@ -22,6 +27,8 @@
   "author": "Bielishev Denys",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^7.6.0"
+    "concurrently": "^7.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2"
   }
 }
