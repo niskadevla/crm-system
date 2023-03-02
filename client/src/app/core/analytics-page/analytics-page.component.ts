@@ -37,11 +37,7 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(
-      private analyticsFacade: AnalyticsFacade,
-      private cdr: ChangeDetectorRef
-  ) {
-  }
+  constructor(private analyticsFacade: AnalyticsFacade, private cdr: ChangeDetectorRef) {}
 
   public ngAfterViewInit(): void {
     this.getAnalytics();
@@ -53,16 +49,15 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
   private getAnalytics(): void {
     this.subscription.add(
-        this.analyticsFacade.getAnalytics()
-            .pipe(
-                tap(this.renderChart.bind(this))
-            )
-            .subscribe((data: IAnalytics) => {
-              this.averageOrdersPerDay = data.averageOrdersPerDay;
+      this.analyticsFacade
+        .getAnalytics()
+        .pipe(tap(this.renderChart.bind(this)))
+        .subscribe((data: IAnalytics) => {
+          this.averageOrdersPerDay = data.averageOrdersPerDay;
 
-              this.cdr.markForCheck();
-            })
-    )
+          this.cdr.markForCheck();
+        })
+    );
   }
 
   private renderChart(analyticsData: IAnalytics): void {
@@ -88,5 +83,4 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
     this.pending = false;
   }
-
 }
