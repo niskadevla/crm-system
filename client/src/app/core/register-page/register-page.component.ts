@@ -5,12 +5,13 @@ import { Router } from '@angular/router';
 
 import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 
-import { RegisterFormControlsEnums } from './enums/register-form.enums';
-import { comparePasswordValidator } from './validators/form.validators';
 import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
 import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
 import { AuthQueryParamsEnum } from '../../shared/enums/query-params.enums';
 import { MaterialService } from '../../shared/services/material.service';
+
+import { RegisterFormControlsEnums } from './enums/register-form.enums';
+import { comparePasswordValidator } from './validators/form.validators';
 
 @Component({
   standalone: true,
@@ -22,7 +23,7 @@ import { MaterialService } from '../../shared/services/material.service';
 })
 export class RegisterPageComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
-  public readonly registerFormControlsEnums = RegisterFormControlsEnums;
+  public readonly registerFormControlsEnums: typeof RegisterFormControlsEnums = RegisterFormControlsEnums;
 
   private subscription: Subscription = new Subscription();
 
@@ -104,6 +105,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   private handleError(error: any): Observable<any> {
     this.materialService.toast(error.error.message);
     this.registerForm.enable();
+
     return of('');
   }
 }

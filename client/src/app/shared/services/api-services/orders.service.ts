@@ -18,7 +18,7 @@ export class OrdersService {
   }
 
   public getOrders(params: any = {}): Observable<IOrder[]> {
-    const httpParams = new HttpParams({
+    const httpParams: HttpParams = new HttpParams({
       fromObject: params
     });
 

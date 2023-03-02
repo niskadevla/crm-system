@@ -2,7 +2,7 @@ import { ElementRef, Injectable } from '@angular/core';
 
 import { DATE_PICKER_DATE_FORMAT } from '../constants/date.constants';
 
-declare var M: any;
+declare let M: any;
 
 export interface MaterialInstance {
   open(): void;

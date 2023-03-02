@@ -28,16 +28,16 @@ import { IPosition } from '../../../../shared/models/entities.models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PositionModalComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
-  @ViewChild('modal') modalRef!: ElementRef;
+  @ViewChild('modal') private modalRef!: ElementRef;
 
-  @Input() categoryId!: string;
+  @Input() public categoryId!: string;
   @Input() public position: IPosition | null = null;
 
-  @Output() public onCreate = new EventEmitter<IPosition>();
-  @Output() public onUpdate = new EventEmitter<IPosition>();
+  @Output() public create: EventEmitter<IPosition> = new EventEmitter<IPosition>();
+  @Output() public update: EventEmitter<IPosition> = new EventEmitter<IPosition>();
 
-  public positionsFromControlsEnum = PositionsFromControlsEnum;
-  public minCost = 1;
+  public positionsFromControlsEnum: typeof PositionsFromControlsEnum = PositionsFromControlsEnum;
+  public minCost: number = 1;
   public form!: FormGroup;
 
   private modal!: MaterialInstance;
@@ -122,9 +122,9 @@ export class PositionModalComponent implements OnInit, OnDestroy, AfterViewInit,
     if (this.isEditMode) {
       newPosition._id = this.position?._id;
 
-      this.onUpdate.emit(newPosition);
+      this.update.emit(newPosition);
     } else {
-      this.onCreate.emit(newPosition);
+      this.create.emit(newPosition);
     }
   }
 

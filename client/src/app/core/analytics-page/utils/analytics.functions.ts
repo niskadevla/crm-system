@@ -14,7 +14,7 @@ export const createChartConfig = ({labels, data, label, color}: IChartItemConfig
           data,
           borderColor: color,
           steppedLine: false,
-          fill: false,
+          fill: false
         }
       ]
     }

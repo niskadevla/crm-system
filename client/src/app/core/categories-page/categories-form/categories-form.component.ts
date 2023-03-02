@@ -15,10 +15,12 @@ import { catchError, filter, Observable, of, Subscription, switchMap, tap, throw
 
 import { ROUTE_CONFIGS } from '../../../shared/constants/route.constants';
 import { CategoriesFormControlsEnums } from '../enums/categories-form.enums';
-import { PositionsFormComponent } from './positions-form/positions-form.component';
 import { CategoriesFacade } from '../../../shared/services/facades/categories-facade.service';
 import { ICategory } from '../../../shared/models/entities.models';
 import { MaterialService } from '../../../shared/services/material.service';
+import { IRoutesConfig } from '../../../shared/models/route.models';
+
+import { PositionsFormComponent } from './positions-form/positions-form.component';
 
 @Component({
   selector: 'app-categories-form',
@@ -29,16 +31,16 @@ import { MaterialService } from '../../../shared/services/material.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesFormComponent implements OnInit, OnDestroy {
-  @ViewChild('inputFile') inputFileRef!: ElementRef;
+  @ViewChild('inputFile') private inputFileRef!: ElementRef;
 
-  public categoriesFormControlsEnums = CategoriesFormControlsEnums;
+  public categoriesFormControlsEnums: typeof CategoriesFormControlsEnums = CategoriesFormControlsEnums;
   public formCategories!: FormGroup;
-  public routeConfigs = ROUTE_CONFIGS;
-  public isNew = true;
-  public imagePreview = '';
+  public routeConfigs: IRoutesConfig = ROUTE_CONFIGS;
+  public isNew: boolean = true;
+  public imagePreview: string = '';
   public category!: ICategory;
 
-  private subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
   private image!: File;
 
   public get nameControl(): AbstractControl {
@@ -54,14 +56,13 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-      private readonly fb: FormBuilder,
-      private readonly route: ActivatedRoute,
-      private readonly categoriesFacade: CategoriesFacade,
-      private readonly materialService: MaterialService,
-      private readonly cdr: ChangeDetectorRef,
-      private readonly router: Router
-  ) {
-  }
+    private readonly fb: FormBuilder,
+    private readonly route: ActivatedRoute,
+    private readonly categoriesFacade: CategoriesFacade,
+    private readonly materialService: MaterialService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly router: Router
+  ) {}
 
   public ngOnInit(): void {
     this.initForm();
@@ -73,22 +74,23 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   public deleteCategory(): void {
-    const decision = window.confirm(`Are you sure that you want to delete the category "${this.category?.name}"`);
+    const decision: boolean = window.confirm(
+      `Are you sure that you want to delete the category "${this.category?.name}"`
+    );
 
     if (decision) {
       this.subscription.add(
-          this.categoriesFacade.delete(this.category._id)
-              .subscribe({
-                next: () => this.materialService.toast('Category is removed successfully.'),
-                error: (error: any) => this.materialService.toast(error.error?.message),
-                complete: () => this.router.navigate([ROUTE_CONFIGS.categories.fullPath])
-              })
-      )
+        this.categoriesFacade.delete(this.category._id).subscribe({
+          next: () => this.materialService.toast('Category is removed successfully.'),
+          error: (error: any) => this.materialService.toast(error.error?.message),
+          complete: () => this.router.navigate([ROUTE_CONFIGS.categories.fullPath])
+        })
+      );
     }
   }
 
   public onSubmit(): void {
-    const categoryName = this.formCategories.value?.name;
+    const categoryName: string = this.formCategories.value?.name;
     let category$: Observable<ICategory | null>;
 
     this.formCategories.disable();
@@ -100,30 +102,30 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     }
 
     this.subscription.add(
-        category$
-            .pipe(
-                filter<ICategory | null>(Boolean),
-                tap(this.updateCategory.bind(this)),
-                catchError(this.handleError.bind(this))
-            )
-            .subscribe(() => {
-              this.cdr.markForCheck();
-            })
-    )
+      category$
+        .pipe(
+          filter<ICategory | null>(Boolean),
+          tap(this.updateCategory.bind(this)),
+          catchError(this.handleError.bind(this))
+        )
+        .subscribe(() => {
+          this.cdr.markForCheck();
+        })
+    );
   }
 
   public onFileUpload($event: any): void {
     const file: File = $event.target.files[0];
-    const reader = new FileReader();
+    const reader: FileReader = new FileReader();
 
     this.image = file;
-    this.imagePreview = file.name
+    this.imagePreview = file.name;
 
     reader.onload = () => {
       this.imagePreview = reader.result as string;
 
       this.cdr.markForCheck();
-    }
+    };
 
     reader.readAsDataURL(file);
   }
@@ -135,24 +137,24 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.formCategories = this.fb.group({
       [CategoriesFormControlsEnums.Name]: [null, [Validators.required]]
-    })
+    });
   }
 
   private initRouteListener(): void {
     this.formCategories.disable();
 
     this.subscription.add(
-        this.route.params
-            .pipe(
-                switchMap(this.getCategoryById.bind(this)),
-                tap(() => this.formCategories.enable()),
-                filter<ICategory | null>(Boolean),
-                tap(this.setCategory.bind(this)),
-                catchError(this.handleError.bind(this)),
-            )
-            .subscribe(() => {
-              this.cdr.markForCheck();
-            })
+      this.route.params
+        .pipe(
+          switchMap(this.getCategoryById.bind(this)),
+          tap(() => this.formCategories.enable()),
+          filter<ICategory | null>(Boolean),
+          tap(this.setCategory.bind(this)),
+          catchError(this.handleError.bind(this))
+        )
+        .subscribe(() => {
+          this.cdr.markForCheck();
+        })
     );
   }
 
@@ -178,11 +180,11 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
 
   private updateCategory(category: ICategory): void {
     this.category = category;
-    this.formCategories.enable()
+    this.formCategories.enable();
 
     this.materialService.toast('Changes are saved.');
   }
-  
+
   private handleError(error: any): Observable<never> {
     this.materialService.toast(error.error?.message || '');
     this.formCategories.enable();

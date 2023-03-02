@@ -15,7 +15,7 @@
 
 <app-history-filter
   *ngIf="isFilterVisible"
-  (onFilter)="applyFilter($event)"
+  (filter)="applyFilter($event)"
 ></app-history-filter>
 
 <ng-container *ngIf="orders?.length; else empty">

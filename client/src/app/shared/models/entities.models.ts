@@ -19,6 +19,7 @@ export interface IPosition {
   quantity?: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IOrderPosition extends Pick<IPosition, 'name' | 'cost' | '_id' | 'quantity'> {
 }
 
@@ -36,11 +37,6 @@ export interface IFilter {
   order?: number;
 }
 
-export interface IRevenueAnalytics {
-  revenue: IRevenueStatistic;
-  orders: IRevenueStatistic;
-}
-
 export interface IRevenueStatistic {
   percent: number;
   compare: number;
@@ -48,13 +44,18 @@ export interface IRevenueStatistic {
   isHigher: boolean;
 }
 
-export interface IAnalytics {
-  averageOrdersPerDay: number;
-  chart: IChart[];
+export interface IRevenueAnalytics {
+  revenue: IRevenueStatistic;
+  orders: IRevenueStatistic;
 }
 
 export interface IChart {
   label: string;
   numberOfOrders: number;
   revenue: number;
+}
+
+export interface IAnalytics {
+  averageOrdersPerDay: number;
+  chart: IChart[];
 }

@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnDestroy,
@@ -13,11 +14,12 @@ import { Subscription } from 'rxjs';
 
 import { MaterialInstance, MaterialService } from '../../shared/services/material.service';
 import { OrdersFacade } from '../../shared/services/facades/orders-facade.service';
-import { DEFAULT_PAGE_LIMIT, DEFAULT_PAGE_NUMBER } from './constants/request.consts';
 import { IFilter, IOrder } from '../../shared/models/entities.models';
+import { IQueryParams } from '../../shared/models/request.models';
+
 import { HistoryListComponent } from './components/history-list/history-list.component';
 import { HistoryFilterComponent } from './components/history-filter/history-filter.component';
-import { IQueryParams } from '../../shared/models/request.models';
+import { DEFAULT_PAGE_LIMIT, DEFAULT_PAGE_NUMBER } from './constants/request.consts';
 
 @Component({
   selector: 'app-history-page',
@@ -27,28 +29,27 @@ import { IQueryParams } from '../../shared/models/request.models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('tooltip') tooltipRef!: ElementRef
+  @ViewChild('tooltip') private tooltipRef!: ElementRef;
 
   public tooltip!: MaterialInstance;
-  public isFilterVisible = false;
+  public isFilterVisible: boolean = false;
   public orders: IOrder[] = [];
-  public noMoreOrders = false;
+  public noMoreOrders: boolean = false;
   public filter: IFilter = {};
 
-  private page = DEFAULT_PAGE_NUMBER;
-  private limit = DEFAULT_PAGE_LIMIT;
-  private readonly subscription = new Subscription();
+  private page: number = DEFAULT_PAGE_NUMBER;
+  private limit: number = DEFAULT_PAGE_LIMIT;
+  private readonly subscription: Subscription = new Subscription();
 
   public get isFiltered(): boolean {
-    return !!Object.keys(this.filter).length
+    return !!Object.keys(this.filter).length;
   }
 
   constructor(
-      private readonly materialService: MaterialService,
-      private readonly orderFacade: OrdersFacade,
-      private readonly cdr: ChangeDetectorRef
-  ) {
-  }
+    private readonly materialService: MaterialService,
+    private readonly orderFacade: OrdersFacade,
+    private readonly cdr: ChangeDetectorRef
+  ) {}
 
   public ngOnInit(): void {
     this.getOrders();
@@ -84,17 +85,15 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
       ...this.filter,
       page: this.page,
       limit: this.limit
-    }
+    };
 
     this.subscription.add(
-        this.orderFacade.getOrders(params)
-            .subscribe((orders: IOrder[]) => {
-              this.orders = [...this.orders, ...orders];
-              this.noMoreOrders = orders.length < this.limit;
+      this.orderFacade.getOrders(params).subscribe((orders: IOrder[]) => {
+        this.orders = [...this.orders, ...orders];
+        this.noMoreOrders = orders.length < this.limit;
 
-              this.cdr.markForCheck();
-            })
-    )
+        this.cdr.markForCheck();
+      })
+    );
   }
-
 }

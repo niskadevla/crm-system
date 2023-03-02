@@ -11,6 +11,7 @@ describe('LoaderInterceptor', () => {
 
   it('should be created', () => {
     const interceptor: LoaderInterceptor = TestBed.inject(LoaderInterceptor);
+
     expect(interceptor).toBeTruthy();
   });
 });

@@ -8,7 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription, take } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 
 import { MaterialInstance, MaterialService } from '../../../../shared/services/material.service';
 import { OrderService } from '../../services/order.service';
@@ -26,15 +26,15 @@ import { OrdersFacade } from '../../../../shared/services/facades/orders-facade.
 export class OrderModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('modal') public modalRef!: ElementRef;
 
-  public readonly list$ = this.orderService.list$;
-  public readonly price$ = this.orderService.price$;
+  public readonly list$: Observable<IOrderPosition[]> = this.orderService.list$;
+  public readonly price$: Observable<number> = this.orderService.price$;
 
   public modal!: MaterialInstance;
-  public pending = false;
-  public currency = CURRENCY;
+  public pending: boolean = false;
+  public currency: string = CURRENCY;
   public list: IOrderPosition[] = [];
 
-  private subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
 
   public get isDisabledSubmit(): boolean {
     return !this.list.length || this.pending;
@@ -72,19 +72,19 @@ export class OrderModalComponent implements OnInit, AfterViewInit, OnDestroy {
   public submit(): void {
     this.pending = true;
 
-    const order: IOrder = {
+    const newOrder: IOrder = {
       list: this.removeIdFromList(this.list)
     };
 
     this.subscription.add(
-        this.ordersFacade.createOrder(order)
+        this.ordersFacade.createOrder(newOrder)
             .pipe(take(1))
             .subscribe({
               next: ({order}: IOrder) => {
                 this.materialService.toast(`Order №${order} has been added.`);
                 this.orderService.clear();
               },
-              error: err => this.materialService.toast(err.error?.message),
+              error: (err: any) => this.materialService.toast(err.error?.message),
               complete: () => {
                 this.modal.close();
                 this.pending = false;

@@ -27,9 +27,9 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
 
   @Input() public orders: IOrder[] = [];
 
-  public currency = CURRENCY;
-  public dateFormat = DATE_FORMAT;
-  public timeFormat = TIME_FORMAT;
+  public currency: string = CURRENCY;
+  public dateFormat: string = DATE_FORMAT;
+  public timeFormat: string = TIME_FORMAT;
   public selectedOrder!: IOrder;
 
   private modal!: MaterialInstance;

@@ -8,6 +8,7 @@ import { ICategory } from '../../../../shared/models/entities.models';
 import { CategoriesFacade } from '../../../../shared/services/facades/categories-facade.service';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 import { ROUTE_CONFIGS } from '../../../../shared/constants/route.constants';
+import { IRoutesConfig } from '../../../../shared/models/route.models';
 
 @Component({
   selector: 'app-order-categories',
@@ -18,7 +19,7 @@ import { ROUTE_CONFIGS } from '../../../../shared/constants/route.constants';
 })
 export class OrderCategoriesComponent {
   public categories$: Observable<ICategory[]> = this.categoriesFacade.getAllCategories;
-  public routeConfigs = ROUTE_CONFIGS;
+  public routeConfigs: IRoutesConfig = ROUTE_CONFIGS;
 
   constructor(private categoriesFacade: CategoriesFacade) {
   }
