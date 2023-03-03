@@ -1,5 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MaterialService } from '../../shared/services/material.service';
+import { materialServiceMock } from '../../shared/mocks/material-service.mock';
+import { AuthFacade } from '../../shared/services/facades/auth-facade.service';
+import { authFacadeMock } from '../../shared/mocks/auth-facade.mock';
+
 import { RegisterPageComponent } from './register-page.component';
 
 describe('RegisterPageComponent', () => {
@@ -8,9 +13,18 @@ describe('RegisterPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisterPageComponent ]
-    })
-    .compileComponents();
+      imports: [RegisterPageComponent],
+      providers: [
+        {
+          provide: MaterialService,
+          useValue: materialServiceMock
+        },
+        {
+          provide: AuthFacade,
+          useValue: authFacadeMock
+        }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterPageComponent);
     component = fixture.componentInstance;

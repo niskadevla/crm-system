@@ -9,10 +9,8 @@ import { LocalStorageService } from '../local-storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthFacadeService {
-
-  constructor(private authApi: AuthService, private storageService: LocalStorageService) {
-  }
+export class AuthFacade {
+  constructor(private authApi: AuthService, private storageService: LocalStorageService) {}
 
   public login(user: IUser): Observable<IToken> {
     return this.authApi.login(user);
@@ -26,5 +24,9 @@ export class AuthFacadeService {
     const token: IToken | null = this.storageService.getItem<IToken>('auth-token');
 
     this.authApi.setToken(token);
+  }
+
+  public logout(): void {
+    this.authApi.logout();
   }
 }

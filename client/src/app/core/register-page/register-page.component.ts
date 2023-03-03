@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 
-import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
+import { AuthFacade } from '../../shared/services/facades/auth-facade.service';
 import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
 import { AuthQueryParamsEnum } from '../../shared/enums/query-params.enums';
 import { MaterialService } from '../../shared/services/material.service';
@@ -52,18 +52,15 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   }
 
   public get isComparePasswordInvalid(): boolean {
-    return this.registerForm.invalid
-        && this.comparePasswordControl.touched
-        && this.passwordControl.touched;
+    return this.registerForm.invalid && this.comparePasswordControl.touched && this.passwordControl.touched;
   }
 
   constructor(
-      private fb: FormBuilder,
-      private authFacade: AuthFacadeService,
-      private router: Router,
-      private materialService: MaterialService
-  ) {
-  }
+    private fb: FormBuilder,
+    private authFacade: AuthFacade,
+    private router: Router,
+    private materialService: MaterialService
+  ) {}
 
   public ngOnInit() {
     this.initForm();
@@ -77,21 +74,22 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     this.registerForm.disable();
 
     this.subscription.add(
-        this.authFacade.register(this.registerForm.value)
-            .pipe(
-                tap(this.successNavigateTo.bind(this)),
-                catchError(this.handleError.bind(this))
-            )
-            .subscribe()
+      this.authFacade
+        .register(this.registerForm.value)
+        .pipe(tap(this.successNavigateTo.bind(this)), catchError(this.handleError.bind(this)))
+        .subscribe()
     );
   }
 
   private initForm() {
-    this.registerForm = this.fb.group({
-      [RegisterFormControlsEnums.Email]: [null, [Validators.required, Validators.email]],
-      [RegisterFormControlsEnums.Password]: [null, [Validators.required, Validators.minLength(6)]],
-      [RegisterFormControlsEnums.ComparedPassword]: [null, [Validators.required]]
-    }, {validators: comparePasswordValidator});
+    this.registerForm = this.fb.group(
+      {
+        [RegisterFormControlsEnums.Email]: [null, [Validators.required, Validators.email]],
+        [RegisterFormControlsEnums.Password]: [null, [Validators.required, Validators.minLength(6)]],
+        [RegisterFormControlsEnums.ComparedPassword]: [null, [Validators.required]]
+      },
+      { validators: comparePasswordValidator }
+    );
   }
 
   private successNavigateTo(): void {

@@ -2,9 +2,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
+    "module": "commonjs",
+    "target": "es2015",
+    "outDir": "./dist/out-tsc/spec",
     "types": [
-      "jasmine"
+      "jest",
+      "node"
     ]
   },
   "include": [

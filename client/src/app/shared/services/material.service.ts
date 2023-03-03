@@ -18,13 +18,13 @@ export interface MaterialDatepicker extends MaterialInstance {
   providedIn: 'root'
 })
 export class MaterialService {
-  public toast(message: string) {
+  public toast(message: string): void {
     if (message) {
-      M.toast({html: message});
+      M.toast({ html: message });
     }
   }
 
-  public initializeFloatingButton(ref: ElementRef) {
+  public initializeFloatingButton(ref: ElementRef): void {
     M.FloatingActionButton.init(ref.nativeElement);
   }
 
@@ -45,7 +45,7 @@ export class MaterialService {
       format: DATE_PICKER_DATE_FORMAT,
       showClearBtn: true,
       onClose
-    })
+    });
   }
 
   public initTapTarget(ref: ElementRef): MaterialInstance {

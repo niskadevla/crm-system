@@ -1,13 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthFacadeService } from './auth-facade.service';
+import { MockProvider } from 'ng-mocks';
 
-describe('AuthFacadeService', () => {
-  let service: AuthFacadeService;
+import { AuthService } from '../api-services/auth.service';
+import { LocalStorageService } from '../local-storage.service';
+
+import { AuthFacade } from './auth-facade.service';
+
+describe('AuthFacade', () => {
+  let service: AuthFacade;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthFacadeService);
+    TestBed.configureTestingModule({
+      providers: [MockProvider(AuthService), MockProvider(LocalStorageService)]
+    });
+    service = TestBed.inject(AuthFacade);
   });
 
   it('should be created', () => {

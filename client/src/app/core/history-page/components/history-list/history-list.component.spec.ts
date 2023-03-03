@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MaterialService } from '../../../../shared/services/material.service';
+import { materialServiceMock } from '../../../../shared/mocks/material-service.mock';
+
 import { HistoryListComponent } from './history-list.component';
 
 describe('HistoryListComponent', () => {
@@ -8,9 +11,14 @@ describe('HistoryListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HistoryListComponent ]
-    })
-    .compileComponents();
+      imports: [HistoryListComponent],
+      providers: [
+        {
+          provide: MaterialService,
+          useValue: materialServiceMock
+        }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HistoryListComponent);
     component = fixture.componentInstance;

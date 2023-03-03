@@ -80,7 +80,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
 
     if (decision) {
       this.subscription.add(
-        this.categoriesFacade.delete(this.category._id).subscribe({
+        this.categoriesFacade.deleteCategory(this.category._id).subscribe({
           next: () => this.materialService.toast('Category is removed successfully.'),
           error: (error: any) => this.materialService.toast(error.error?.message),
           complete: () => this.router.navigate([ROUTE_CONFIGS.categories.fullPath])
@@ -145,7 +145,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.route.params
-        .pipe(
+        ?.pipe(
           switchMap(this.getCategoryById.bind(this)),
           tap(() => this.formCategories.enable()),
           filter<ICategory | null>(Boolean),
