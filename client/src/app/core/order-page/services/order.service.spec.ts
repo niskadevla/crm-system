@@ -1,13 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OrderService } from './order.service';
+import { MockProvider } from 'ng-mocks';
 
-describe('OrderService', () => {
-  let service: OrderService;
+import { ComputePricePipe } from '../../../shared/pipes/compute-price/compute-price.pipe';
+
+import { OrderServiceStore } from './order.service';
+
+describe('OrderServiceStore', () => {
+  let service: OrderServiceStore;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(OrderService);
+    TestBed.configureTestingModule({
+      providers: [OrderServiceStore, MockProvider(ComputePricePipe)]
+    });
+    service = TestBed.inject(OrderServiceStore);
   });
 
   it('should be created', () => {

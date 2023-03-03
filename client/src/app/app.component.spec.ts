@@ -2,6 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
+import { AuthFacade } from './shared/services/facades/auth-facade.service';
+import { authFacadeMock } from './shared/mocks/auth-facade.mock';
+import { LoaderService } from './shared/services/loader.service';
+import { loaderServiceMock } from './shared/mocks/loader-service.mock';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -9,16 +13,22 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
+      imports: [RouterTestingModule],
+      declarations: [AppComponent],
+      providers: [
+        {
+          provide: AuthFacade,
+          useValue: authFacadeMock
+        },
+        {
+          provide: LoaderService,
+          useValue: loaderServiceMock
+        }
       ]
     }).compileComponents();
   });
 
-  beforeEach( () => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
     fixture.detectChanges();

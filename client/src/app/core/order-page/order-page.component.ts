@@ -10,7 +10,7 @@ import { ComputePricePipe } from '../../shared/pipes/compute-price/compute-price
 import { IRoutesConfig } from '../../shared/models/route.models';
 
 import { OrderModalComponent } from './components/order-modal/order-modal.component';
-import { OrderService } from './services/order.service';
+import { OrderServiceStore } from './services/order.service';
 
 @Component({
   selector: 'app-order-page',
@@ -18,22 +18,18 @@ import { OrderService } from './services/order.service';
   imports: [CommonModule, RouterModule, OrderModalComponent],
   templateUrl: './order-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [OrderService, ComputePricePipe]
+  providers: [OrderServiceStore, ComputePricePipe]
 })
 export class OrderPageComponent implements OnInit, OnDestroy {
   @ViewChild('orderModal') private orderModal!: OrderModalComponent;
 
   public isRoot: boolean = true;
   public routeConfigs: IRoutesConfig = ROUTE_CONFIGS;
-  public readonly list$: Observable<IOrderPosition[]> = this.orderService.list$;
+  public readonly list$: Observable<IOrderPosition[]> = this.orderServiceStore.list$;
 
   private subscription: Subscription = new Subscription();
 
-  constructor(
-      public readonly orderService: OrderService,
-      private readonly router: Router
-  ) {
-  }
+  constructor(public readonly orderServiceStore: OrderServiceStore, private readonly router: Router) {}
 
   public ngOnInit(): void {
     this.initRouterListener();
@@ -49,11 +45,11 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 
   private initRouterListener(): void {
     this.subscription.add(
-        this.router.events.subscribe((event: any) => {
-          if (event instanceof NavigationEnd) {
-            this.isRoot = this.router.url === ROUTE_CONFIGS.order.fullPath;
-          }
-        })
-    )
+      this.router.events.subscribe((event: any) => {
+        if (event instanceof NavigationEnd) {
+          this.isRoot = this.router.url === ROUTE_CONFIGS.order.fullPath;
+        }
+      })
+    );
   }
 }

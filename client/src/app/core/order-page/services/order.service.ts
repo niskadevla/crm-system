@@ -8,7 +8,7 @@ import { findItemById, removeItemById } from '../../../shared/utils/common.funct
 import { ComputePricePipe } from '../../../shared/pipes/compute-price/compute-price.pipe';
 
 @Injectable()
-export class OrderService {
+export class OrderServiceStore {
   private readonly _list$$: BehaviorSubject<IOrderPosition[]> = new BehaviorSubject<IOrderPosition[]>([]);
   private readonly _price$$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
@@ -20,11 +20,10 @@ export class OrderService {
     return this._price$$.asObservable();
   }
 
-  constructor(private computePricePipe: ComputePricePipe) {
-  }
+  constructor(private computePricePipe: ComputePricePipe) {}
 
-  public addOrderPosition({name, cost, quantity = MIN_QUANTITY, _id = ''}: IPosition): void {
-    const orderPosition: Required<IOrderPosition> = {name, cost, quantity, _id};
+  public addOrderPosition({ name, cost, quantity = MIN_QUANTITY, _id = '' }: IPosition): void {
+    const orderPosition: Required<IOrderPosition> = { name, cost, quantity, _id };
     const sameOrderPosition: IOrderPosition | undefined = findItemById(this._list$$.getValue(), orderPosition._id);
 
     if (sameOrderPosition) {

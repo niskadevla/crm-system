@@ -2,10 +2,10 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChil
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { AuthService } from '../../../shared/services/api-services/auth.service';
 import { MaterialService } from '../../../shared/services/material.service';
 import { ROUTE_CONFIGS } from '../../../shared/constants/route.constants';
 import { IRoutesConfig } from '../../../shared/models/route.models';
+import { AuthFacade } from '../../../shared/services/facades/auth-facade.service';
 
 import { LINKS } from './constants/links.constants';
 import { ILink } from './models/link.models';
@@ -24,17 +24,13 @@ export class SiteLayoutComponent implements AfterViewInit {
   public links: ILink[] = LINKS;
   public routeConfigs: IRoutesConfig = ROUTE_CONFIGS;
 
-  constructor(
-      private readonly authService: AuthService,
-      private readonly materialService: MaterialService
-  ) {
-  }
+  constructor(private readonly authFacade: AuthFacade, private readonly materialService: MaterialService) {}
 
   public ngAfterViewInit() {
     this.materialService.initializeFloatingButton(this.floatingRef);
   }
 
-  public logout() {
-    this.authService.logout();
+  public logout(): void {
+    this.authFacade.logout();
   }
 }

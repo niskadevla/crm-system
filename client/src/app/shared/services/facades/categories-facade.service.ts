@@ -9,12 +9,11 @@ import { ICategory } from '../../models/entities.models';
   providedIn: 'root'
 })
 export class CategoriesFacade {
-
   public get getAllCategories(): Observable<ICategory[]> {
     return this.categoriesApi.getAll();
   }
 
-  constructor(private categoriesApi: CategoriesService) { }
+  constructor(private categoriesApi: CategoriesService) {}
 
   public getCategoryById(id: string): Observable<ICategory> {
     return this.categoriesApi.getById(id);
@@ -28,7 +27,7 @@ export class CategoriesFacade {
     return this.categoriesApi.update(id, name, image);
   }
 
-  public delete(id: string): Observable<ICategory> {
-    return this.categoriesApi.delete(id)
+  public deleteCategory(id: string): Observable<ICategory> {
+    return this.categoriesApi.delete(id);
   }
 }
