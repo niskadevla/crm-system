@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { AuthFacadeService } from './shared/services/facades/auth-facade.service';
+import { AuthFacade } from './shared/services/facades/auth-facade.service';
 import { LoaderService } from './shared/services/loader.service';
 
 @Component({
@@ -13,9 +13,9 @@ import { LoaderService } from './shared/services/loader.service';
 export class AppComponent implements OnInit {
   public spinner$: Observable<number> = this.loadService.spinner$;
 
-  constructor(private readonly authFacadeService: AuthFacadeService, private readonly loadService: LoaderService) {}
+  constructor(private readonly authFacade: AuthFacade, private readonly loadService: LoaderService) {}
 
   public ngOnInit(): void {
-    this.authFacadeService.initToken();
+    this.authFacade.initToken();
   }
 }

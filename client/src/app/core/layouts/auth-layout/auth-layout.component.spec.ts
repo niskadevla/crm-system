@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockModule } from 'ng-mocks';
+
+import { AppRoutingModule } from '../../../app-routing.module';
+
 import { AuthLayoutComponent } from './auth-layout.component';
 
 describe('AuthLayoutComponent', () => {
@@ -8,9 +12,9 @@ describe('AuthLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthLayoutComponent ]
-    })
-    .compileComponents();
+      declarations: [AuthLayoutComponent],
+      imports: [MockModule(AppRoutingModule)]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AuthLayoutComponent);
     component = fixture.componentInstance;

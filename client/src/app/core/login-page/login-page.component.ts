@@ -5,7 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 
-import { AuthFacadeService } from '../../shared/services/facades/auth-facade.service';
+import { AuthFacade } from '../../shared/services/facades/auth-facade.service';
 import { ROUTE_CONFIGS } from '../../shared/constants/route.constants';
 import { AuthQueryParamsEnum } from '../../shared/enums/query-params.enums';
 import { MaterialService } from '../../shared/services/material.service';
@@ -20,7 +20,6 @@ import { LoginFormControlsEnums } from './enums/login-form.enums';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
-
   public loginForm!: FormGroup;
   public readonly loginFormControlsEnums: typeof LoginFormControlsEnums = LoginFormControlsEnums;
 
@@ -47,13 +46,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-      private fb: FormBuilder,
-      private authFacade: AuthFacadeService,
-      private router: Router,
-      private route: ActivatedRoute,
-      private materialService: MaterialService
-  ) {
-  }
+    private fb: FormBuilder,
+    private authFacade: AuthFacade,
+    private router: Router,
+    private route: ActivatedRoute,
+    private materialService: MaterialService
+  ) {}
 
   public ngOnInit(): void {
     this.initForm();
@@ -68,12 +66,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.loginForm.disable();
 
     this.subscription.add(
-        this.authFacade.login(this.loginForm.value)
-            .pipe(
-                tap(this.successNavigateTo.bind(this)),
-                catchError(this.handleError.bind(this))
-            )
-            .subscribe()
+      this.authFacade
+        .login(this.loginForm.value)
+        .pipe(tap(this.successNavigateTo.bind(this)), catchError(this.handleError.bind(this)))
+        .subscribe()
     );
   }
 
@@ -85,9 +81,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private initQueryParamsListener(): void {
-    this.subscription.add(
-        this.route.queryParams.subscribe(this.showMessage.bind(this))
-    )
+    this.subscription.add(this.route.queryParams?.subscribe(this.showMessage.bind(this)));
   }
 
   private successNavigateTo(): void {
@@ -95,7 +89,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private handleError(error: any): Observable<any> {
-    this.materialService.toast(error?.error?.message)
+    this.materialService.toast(error?.error?.message);
     this.loginForm.enable();
 
     return of('');
@@ -104,9 +98,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   private showMessage(params: Params): void {
     // TODO move texts to consts and add i18
     const mapMessages: Map<string, () => void> = new Map()
-        .set(AuthQueryParamsEnum.AccessDenied, () => this.materialService.toast('Please authorize in system!'))
-        .set(AuthQueryParamsEnum.Registered, () => this.materialService.toast('Now we can login to the system'))
-        .set(AuthQueryParamsEnum.SessionFailed, () => this.materialService.toast('Your session is expired.'));
+      .set(AuthQueryParamsEnum.AccessDenied, () => this.materialService.toast('Please authorize in system!'))
+      .set(AuthQueryParamsEnum.Registered, () => this.materialService.toast('Now we can login to the system'))
+      .set(AuthQueryParamsEnum.SessionFailed, () => this.materialService.toast('Your session is expired.'));
 
     Object.keys(params).forEach((param: string) => mapMessages.get(param)?.());
   }
