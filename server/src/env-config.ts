@@ -11,6 +11,7 @@ dotenv.config({
 });
 
 export const ENV_CONFIG: EnvironmentConfig = {
+  env:  process.env.NODE_ENV as NodeEnvEnums,
   mongoURI: process.env.MONGO_URI || '',
   JWT: process.env.JWT || '',
   API_URL: '/api'
