@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/public
 
 # dependencies
 node_modules
@@ -20,4 +21,8 @@ config/*
 !config/config.env
 
 # uploaded files
-/uploads
+uploads/*
+!uploads/.gitkeep
+
+# misc
+/logs
