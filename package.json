@@ -3,19 +3,20 @@
   "version": "1.0.0",
   "description": "CRM system with Node + Angular",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "install-server": "npm install --prefix server",
     "install-client": "npm install --prefix client",
     "install": "npm run install-server && npm run install-client",
+    "prepare": "husky install client/.husky",
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
     "watch": "concurrently --kill-others \"npm run server\" \"npm run client\"",
     "pm2": "pm2 start server -l logs/server-logs.txt -i max",
-    "test": "npm test --prefix server && npm test --prefix client",
     "test:server": "npm test --prefix server",
     "test:client": "npm test --prefix client",
-    "prepare": "husky install client/.husky"
+    "test": "npm test --prefix server && npm test --prefix client",
+    "deploy": "npm run build --prefix server && npm run build --prefix client",
+    "deploy-cluster": "npm run deploy && npm run cluster --prefix server"
   },
   "keywords": [
     "express",
@@ -24,6 +25,10 @@
   ],
   "author": "Bielishev Denys",
   "license": "ISC",
+  "engines": {
+    "node": "^16.14.2",
+    "npm": "^8.5.0"
+  },
   "devDependencies": {
     "concurrently": "^7.6.0",
     "husky": "^8.0.3",
