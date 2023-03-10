@@ -34,7 +34,7 @@ describe('Auth Api', () => {
         .expect('Content-type', /json/)
         .expect(401);
 
-      expect(response.body.error).toStrictEqual({ message: 'Passwords do not match. Try again!' });
+      expect(response.body).toStrictEqual({ message: 'Passwords do not match. Try again!' });
     });
 
     it('It should return 404 - User does not exist', async () => {
@@ -46,7 +46,7 @@ describe('Auth Api', () => {
         .expect('Content-type', /json/)
         .expect(404);
 
-      expect(response.body.error).toStrictEqual({ message: `User with this email ${user.email} does not exist!` });
+      expect(response.body).toStrictEqual({ message: `User with this email ${user.email} does not exist!` });
     });
   });
 
@@ -77,7 +77,7 @@ describe('Auth Api', () => {
         .expect('Content-type', /json/)
         .expect(409);
 
-      expect(response.body.error).toStrictEqual({
+      expect(response.body).toStrictEqual({
         message: `User with this ${user.email} already exists. Try another one!`
       });
     });
@@ -91,7 +91,7 @@ describe('Auth Api', () => {
         .expect('Content-type', /json/)
         .expect(500);
 
-      expect(response.body.error.message).toBeTruthy();
+      expect(response.body.message).toBeTruthy();
     });
   });
 });
