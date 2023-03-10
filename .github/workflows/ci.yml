@@ -9,6 +9,7 @@ jobs:
     env:
       CI: true
       MONGO_URI: mongodb://localhost/mean_db
+      JWT: test-jwt
     strategy:
       matrix:
         node-version: [16.x]
