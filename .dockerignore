@@ -7,5 +7,4 @@ server/dist
 server/logs
 !server/logs/.gitkeep
 server/uploads
-server/config
-!server/config/config.env
+!server/uploads/.gitkeep
