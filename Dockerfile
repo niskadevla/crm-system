@@ -12,7 +12,6 @@ COPY server/package*.json server/
 RUN npm run install-server
 
 COPY server/ server/
-CMD ["mkdir", "logs"]
 RUN npm run build:server
 
 COPY client/ client/
@@ -20,6 +19,6 @@ RUN npm run build:client
 
 USER node
 
-CMD ["npm", "run", "cluster"]
+CMD ["npm", "run", "start"]
 
 EXPOSE 5000

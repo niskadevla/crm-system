@@ -4,7 +4,8 @@
 */node_modules
 
 server/dist
-*/logs
+server/logs
+!server/logs/.gitkeep
 server/uploads
 server/config
 !server/config/config.env
