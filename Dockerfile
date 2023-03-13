@@ -19,6 +19,6 @@ RUN npm run build:client
 
 USER node
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start", "--prefix", "server"]
 
 EXPOSE 5000
