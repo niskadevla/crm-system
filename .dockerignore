@@ -1,4 +1,6 @@
 .git
+Dockerfile
+Makefile
 
 */coverage-jest
 */node_modules

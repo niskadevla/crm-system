@@ -17,7 +17,9 @@ RUN npm run build:server
 COPY client/ client/
 RUN npm run build:client
 
-USER node
+VOLUME ["/app/server/uploads"]
+
+#USER node
 
 CMD ["npm", "run", "start", "--prefix", "server"]
 
