@@ -1,0 +1,10 @@
+.git
+
+*/coverage-jest
+*/node_modules
+
+server/dist
+*/logs
+server/uploads
+server/config
+!server/config/config.env
