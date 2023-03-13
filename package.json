@@ -15,8 +15,11 @@
     "test:server": "npm test --prefix server",
     "test:client": "npm test --prefix client",
     "test": "npm test --prefix server && npm test --prefix client",
-    "deploy": "npm run build --prefix server && npm run build --prefix client",
-    "deploy-cluster": "npm run deploy && npm run cluster --prefix server"
+    "build:server": "npm run build --prefix server",
+    "build:client": "npm run build --prefix client",
+    "deploy": "npm run build:server && npm run build:client",
+    "cluster": "npm run cluster --prefix server",
+    "deploy-cluster": "npm run deploy && npm run cluster"
   },
   "keywords": [
     "express",
@@ -32,6 +35,7 @@
   "devDependencies": {
     "concurrently": "^7.6.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.2"
+    "lint-staged": "^13.1.2",
+    "make": "^0.8.1"
   }
 }

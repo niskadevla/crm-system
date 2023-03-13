@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 import { EnvironmentConfig, NodeEnvEnums } from './utils';
 
 const configPath =
-  process.env.NODE_ENV === NodeEnvEnums.Dev
-    ? ['..', 'config', 'config.dev.env']
-    : ['..', '..', '..', 'config', 'config.env'];
+  process.env.NODE_ENV === NodeEnvEnums.Prod
+    ? ['..', '..', '..', 'config', 'config.prod.env']
+    : ['..', 'config', 'config.dev.env']
 
 dotenv.config({
   debug: true,
