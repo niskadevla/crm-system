@@ -1,10 +1,25 @@
 {
-  "name": "node-js_with_angular",
+  "name": "crm-system",
   "version": "1.0.0",
   "description": "CRM system with Node + Angular",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index"
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "install": "npm run install-server && npm run install-client",
+    "prepare": "husky install client/.husky",
+    "server": "npm run watch --prefix server",
+    "client": "npm start --prefix client",
+    "watch": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+    "lint": "npm run lint --prefix client",
+    "test:server": "npm test --prefix server",
+    "test:client": "npm test --prefix client",
+    "test": "npm test --prefix server && npm test --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build:client": "npm run build --prefix client",
+    "deploy": "npm run build:server && npm run build:client",
+    "cluster": "npm run cluster --prefix server",
+    "deploy-cluster": "npm run deploy && npm run cluster"
   },
   "keywords": [
     "express",
@@ -13,10 +28,14 @@
   ],
   "author": "Bielishev Denys",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2",
-    "@types/express": "^4.17.13",
-    "@types/node": "^17.0.23",
-    "nodemon": "^2.0.20"
+  "engines": {
+    "node": "^16.14.2",
+    "npm": "^8.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "make": "^0.8.1"
   }
 }

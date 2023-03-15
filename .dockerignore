@@ -1,0 +1,12 @@
+.git
+Dockerfile
+Makefile
+
+*/coverage-jest
+*/node_modules
+
+server/dist
+server/logs
+!server/logs/.gitkeep
+server/uploads
+!server/uploads/.gitkeep

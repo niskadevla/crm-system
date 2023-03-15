@@ -1,0 +1,31 @@
+<div class="page-title">
+  <h4>Categories</h4>
+  <button
+    class="waves-effect waves-light btn grey darken-1"
+    [routerLink]="[routeConfigs.categories.fullPath, routeConfigs.newItem.path]"
+  >
+    Add category
+  </button>
+</div>
+
+<div
+  class="row"
+  *ngIf="categories$ | async as categories"
+>
+  <div class="col s12">
+    <div class="collection" *ngIf="categories?.length; else empty">
+      <a
+        *ngFor="let category of categories"
+        [routerLink]="[routeConfigs.categories.fullPath, category._id]"
+        class="collection-item"
+      >
+        {{category.name}}
+      </a>
+    </div>
+    <ng-template #empty>
+      <div class="center">
+        You don't have any category
+      </div>
+    </ng-template>
+  </div>
+</div>

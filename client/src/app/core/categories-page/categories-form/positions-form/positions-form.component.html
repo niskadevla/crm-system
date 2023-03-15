@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col s12">
+    <div class="page-subtitle">
+      <h4>Positions:</h4>
+      <button
+        class="waves-effect waves-light btn grey darken-1 btn-small"
+        type="button"
+        (click)="onAddPosition()"
+      >
+        Add position
+      </button>
+    </div>
+
+    <ng-container *ngIf="!loading">
+      <div class="collection" *ngIf="positions?.length; else empty">
+        <a
+          *ngFor="let position of positions"
+          class="collection-item collection-item-icon"
+          (click)="onSelectPosition(position)"
+        >
+          <span>
+              {{position.name}} - <strong>{{position.cost}}{{currency}}</strong>
+          </span>
+          <span>
+              <i class="material-icons" (click)="onDeletePosition($event, position)">delete</i>
+          </span>
+        </a>
+      </div>
+      <ng-template #empty>
+        <div class="center">No positions</div>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>
+
+<app-position-modal
+  #positionModal
+  [categoryId]="categoryId"
+  [position]="currentPosition"
+  (create)="onCreate($event)"
+  (update)="onUpdate($event)"
+></app-position-modal>

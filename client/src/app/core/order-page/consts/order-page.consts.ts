@@ -1,0 +1,1 @@
+export const MIN_QUANTITY: number = 1;
