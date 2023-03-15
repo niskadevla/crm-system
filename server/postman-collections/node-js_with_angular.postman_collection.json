@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "5ba247f7-0c13-44ae-b52a-715aa37e5bb7",
+		"name": "node-js_with_angular",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18858920"
+	},
+	"item": [
+		{
+			"name": "POST /login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"someemail@gm.com\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/category",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/category",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNvbWVlbWFpbDMzMkBnbS5jb20iLCJ1c2VySWQiOiI2M2YzNjQyMzAxMDgwYjdkYzA4OGFlMzQiLCJpYXQiOjE2NzcwMTMwNzksImV4cCI6MTY3NzAxNjY3OX0.q5RY1J1Ta3-mObiS_axBxsHHXSjLYtPDgw2kcTDmDyg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"list\": {\r\n        \"name\": \"tea\",\r\n        \"quantity\": 1,\r\n        \"cost\": 20\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/order",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /Order",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNvbWVlbWFpbDMzMkBnbS5jb20iLCJ1c2VySWQiOiI2M2YzNjQyMzAxMDgwYjdkYzA4OGFlMzQiLCJpYXQiOjE2NzcwMTMwNzksImV4cCI6MTY3NzAxNjY3OX0.q5RY1J1Ta3-mObiS_axBxsHHXSjLYtPDgw2kcTDmDyg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:5000/api/order?start=2023-02-20T21:02:43.218",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"order"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2023-02-20T21:02:43.218"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
