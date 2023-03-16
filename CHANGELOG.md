@@ -13,6 +13,10 @@ Project is hosted on [Link](https://ec2-3-75-194-76.eu-central-1.compute.amazona
 
 ## 1.1.0 [Unreleased]
 
+## Fixed
+
+- [BE] Fix file regexp - remove g flag
+
 ## 1.0.0 (MVP 1)
 
 ### Analytics

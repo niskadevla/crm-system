@@ -1,1 +1,1 @@
-export const allowedTypeRegExp = /image/g;
+export const allowedTypeRegExp = /image/;
