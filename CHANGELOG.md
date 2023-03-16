@@ -11,6 +11,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Project is hosted on [Link](https://ec2-3-75-194-76.eu-central-1.compute.amazonaws.com)
 
+## 1.1.0 [Unreleased]
+
 ## 1.0.0 (MVP 1)
 
 ### Analytics
