@@ -10,7 +10,9 @@ export const httpLogin = async ({ body: { email, password } }: IPostRequest<IUse
   const candidate = await findUserByFilter({ email });
 
   if (candidate) {
-    if (matchPasswords(password, candidate.password)) {
+    const isMatched = await matchPasswords(password, candidate.password);
+
+    if (isMatched) {
       const jwtPayload: IJwtResponse = {
         email,
         userId: candidate._id
