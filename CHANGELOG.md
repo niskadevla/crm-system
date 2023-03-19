@@ -13,6 +13,10 @@ Project is hosted on [Link](https://ec2-3-75-194-76.eu-central-1.compute.amazona
 
 ## 1.1.0 [Unreleased]
 
+## Changed
+
+- [BE] Remove bcrypt and add metautil
+
 ## Fixed
 
 - [BE] Fix file regexp - remove g flag
