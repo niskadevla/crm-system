@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
+import { DbModelNames } from '../../entities';
+
 const usersSchema = new Schema({
   email: {
     type: String,
@@ -12,4 +14,4 @@ const usersSchema = new Schema({
   }
 });
 
-export const UserModel = mongoose.model('Users', usersSchema);
+export const UserModel = mongoose.model(DbModelNames.Users, usersSchema);

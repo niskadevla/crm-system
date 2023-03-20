@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
+import { DbModelNames } from '../../entities';
+
 const categorySchema = new Schema({
   name: {
     type: String,
@@ -10,9 +12,9 @@ const categorySchema = new Schema({
     default: ''
   },
   user: {
-    ref: 'Users',
+    ref: DbModelNames.Users,
     type: Schema.Types.ObjectId
   }
 });
 
-export const CategoriesModel = mongoose.model('Categories', categorySchema);
+export const CategoriesModel = mongoose.model(DbModelNames.Categories, categorySchema);
