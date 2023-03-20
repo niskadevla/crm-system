@@ -1,11 +1,9 @@
-import bcrypt from 'bcryptjs';
+import metautil from 'metautil';
 
-export const encryptPassword = (password: string): string => {
-  const salt = bcrypt.genSaltSync();
-
-  return bcrypt.hashSync(password, salt)
+export const encryptPassword = async (password: string): Promise<string> => {
+  return metautil.hashPassword(password);
 }
 
-export const matchPasswords = (password: string, hash: string): boolean => {
-  return bcrypt.compareSync(password, hash)
+export const matchPasswords = async (password: string, hash: string): Promise<boolean> => {
+  return metautil.validatePassword(password, hash);
 }
