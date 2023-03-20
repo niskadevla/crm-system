@@ -31,15 +31,18 @@ export const httpLogin = async ({ body: { email, password } }: IPostRequest<IUse
   }
 };
 
-export const httpRegister = async ({ body }: IPostRequest<IUser>, res: any) => {
-  const { email } = body;
+export const httpRegister = async ({ body: { email, password } }: IPostRequest<IUser>, res: any) => {
   const candidate = await findUserByFilter({ email });
 
   if (candidate) {
     return res.status(409).json(new CustomError(`User with this ${email} already exists. Try another one!`));
   } else {
     try {
-      const user: Partial<IUserDTO> = await createNewUser(body);
+      if (!email || !password) {
+        throw Error('Incorrect data')
+      }
+
+      const user: Partial<IUserDTO> = await createNewUser({ email, password });
 
       return res.status(201).json(user);
     } catch (err: unknown) {

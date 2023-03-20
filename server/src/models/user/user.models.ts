@@ -11,9 +11,10 @@ export const getUserByIdWithFields = async (userId: string, fields: string): Pro
 }
 
 export const createNewUser = async ({ email, password }: IUser): Promise<Partial<IUserDTO>> => {
+  const encryptedPassword = await encryptPassword(password);
   const user = new UserModel({
     email,
-    password: await encryptPassword(password)
+    password: encryptedPassword
   });
 
   return user.save();
