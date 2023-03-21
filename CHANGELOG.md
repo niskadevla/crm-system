@@ -16,6 +16,7 @@ Project is hosted on [Link](https://ec2-3-75-194-76.eu-central-1.compute.amazona
 ## Changed
 
 - [BE] Remove bcrypt and add metautil
+- [BE] Add enum for schemas
 
 ## Fixed
 

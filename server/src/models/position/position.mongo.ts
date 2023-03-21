@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
+import { DbModelNames } from '../../entities';
+
 const positionSchema = new Schema({
   name: {
     type: String,
@@ -10,13 +12,13 @@ const positionSchema = new Schema({
     required: true
   },
   category: {
-    ref: 'Categories',
+    ref: DbModelNames.Categories,
     type: Schema.Types.ObjectId
   },
   user: {
-    ref: 'Users',
+    ref: DbModelNames.Users,
     type: Schema.Types.ObjectId
   }
 });
 
-export const PositionsModel = mongoose.model('Positions', positionSchema);
+export const PositionsModel = mongoose.model(DbModelNames.Positions, positionSchema);

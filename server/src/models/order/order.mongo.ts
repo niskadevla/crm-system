@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
-const usersSchema = new Schema({
+import { DbModelNames } from '../../entities';
+
+const ordersSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
@@ -23,9 +25,9 @@ const usersSchema = new Schema({
     }
   ],
   user: {
-    ref: 'Users',
+    ref: DbModelNames.Users,
     type: Schema.Types.ObjectId
   }
 });
 
-  export const OrdersModel = mongoose.model('Orders', usersSchema);
+  export const OrdersModel = mongoose.model(DbModelNames.Orders, ordersSchema);
