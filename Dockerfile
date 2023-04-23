@@ -17,6 +17,9 @@ RUN npm run build:server
 COPY client/ client/
 RUN npm run build:client
 
+#remove devDependencies
+RUN npm prune --production
+
 VOLUME ["/app/server/uploads"]
 
 #USER node
